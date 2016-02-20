@@ -56,7 +56,7 @@ public class Bedrock {
         parentDirectory = defaultConfig.getParentFile();
 
         // Commands
-        game.getCommandManager().register(this, BedrockCommands.getCommand(), "sg", "safeguard");
+        game.getCommandManager().register(this, BedrockCommands.getCommand(), "br", "bedrock");
 
         logger.info("Bedrock started.");
     }
