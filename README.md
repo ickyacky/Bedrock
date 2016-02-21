@@ -14,6 +14,7 @@ Drop into your `mods` folder and enjoy.
 - `/fly (player)` - Toggle fly for yourself or others.
 - `/(m|message) (player) (message)` - Direct message another player.
 - `/(perf|performance|gc)` - View performance stats.
+- `/ping` - Verify server is responsive.
 - `/(r|reply) (message)` - Reply to a direct message.
 - `/sethome (name)` - Set a home.
 - `/spy` - Toggle spying on direct messages.
