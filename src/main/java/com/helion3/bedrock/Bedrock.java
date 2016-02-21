@@ -63,6 +63,7 @@ public class Bedrock {
         // Commands
         game.getCommandManager().register(this, BedrockCommands.getCommand(), "br", "bedrock");
         game.getCommandManager().register(this, DeleteHomeCommand.getCommand(), "delhome");
+        game.getCommandManager().register(this, FeedCommand.getCommand(), "feed");
         game.getCommandManager().register(this, HealCommand.getCommand(), "heal");
         game.getCommandManager().register(this, HomeCommand.getCommand(), "home");
         game.getCommandManager().register(this, HomesCommand.getCommand(), "homes");

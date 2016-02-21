@@ -9,6 +9,7 @@ Drop into your `mods` folder and enjoy.
 # Commands
 
 - `/delhome (name)` - Delete a home.
+- `/feed (player)` - Feed a player or yourself.
 - `/heal (player)` - Heal a player or yourself.
 - `/home (name)` - Teleport to a home.
 - `/homes` - List your homes.
@@ -25,6 +26,7 @@ Drop into your `mods` folder and enjoy.
 
 # Permissions
 
+- `bedrock.feed` - Feed self.
 - `bedrock.heal` - Heal self.
 - `bedrock.home` - Use homes. Limits are define in permissions options.
 - `bedrock.fly` - Toggle fly for yourself.

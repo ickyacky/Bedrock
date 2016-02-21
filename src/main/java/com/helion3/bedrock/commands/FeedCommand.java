@@ -31,8 +31,8 @@ import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
-public class HealCommand {
-    private HealCommand() {}
+public class FeedCommand {
+    private FeedCommand() {}
 
     public static CommandSpec getCommand() {
         return CommandSpec.builder()
@@ -40,15 +40,9 @@ public class HealCommand {
             GenericArguments.playerOrSource(Text.of("player"))
         )
         .description(Text.of("Heal a player."))
-        .permission("bedrock.heal")
+        .permission("bedrock.feed")
         .executor((source, args) -> {
             Player player = args.<Player>getOne("player").get();
-
-            // Extinquish
-            player.offer(Keys.FIRE_TICKS, 0);
-
-            // Heal
-            player.offer(Keys.HEALTH, player.get(Keys.MAX_HEALTH).get());
 
             // Feed
             player.offer(Keys.FOOD_LEVEL, 20);
