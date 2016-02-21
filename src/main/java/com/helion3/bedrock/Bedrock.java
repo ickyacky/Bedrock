@@ -26,6 +26,7 @@ package com.helion3.bedrock;
 import com.google.inject.Inject;
 import com.helion3.bedrock.commands.BedrockCommands;
 import com.helion3.bedrock.commands.FlyCommand;
+import com.helion3.bedrock.commands.PerformanceCommand;
 import com.helion3.bedrock.commands.TeleportCommand;
 import com.helion3.bedrock.commands.WeatherCommand;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
@@ -61,6 +62,7 @@ public class Bedrock {
         // Commands
         game.getCommandManager().register(this, BedrockCommands.getCommand(), "br", "bedrock");
         game.getCommandManager().register(this, FlyCommand.getCommand(), "fly");
+        game.getCommandManager().register(this, PerformanceCommand.getCommand(), "performance", "perf", "gc");
         game.getCommandManager().register(this, TeleportCommand.getCommand(), "tp", "teleport");
         game.getCommandManager().register(this, WeatherCommand.getCommand(), "weather");
 
