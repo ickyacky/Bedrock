@@ -21,54 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.helion3.bedrock.managers;
+package com.helion3.bedrock.commands;
 
+import com.helion3.bedrock.Bedrock;
 import com.helion3.bedrock.PlayerConfiguration;
+import com.helion3.bedrock.util.Format;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.args.GenericArguments;
+import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+public class DeleteHomeCommand {
+    private DeleteHomeCommand() {}
 
-public class PlayerConfigManager {
-    private final Map<Player, PlayerConfiguration> playerConfigs = new HashMap<>();
+    public static CommandSpec getCommand() {
+        return CommandSpec.builder()
+        .arguments(
+            GenericArguments.string(Text.of("name"))
+        )
+        .description(Text.of("Delete a home."))
+        .permission("bedrock.home")
+        .executor((source, args) -> {
+            if (!(source instanceof Player)) {
+                source.sendMessage(Format.error("Only players may use this command."));
+                return CommandResult.empty();
+            }
 
-    /**
-     * Load and cache a player's configuration file.
-     *
-     * @param player
-     */
-    public void loadPlayer(Player player) {
-        PlayerConfiguration config = getPlayerConfig(player.getUniqueId());
-        playerConfigs.put(player, config);
-    }
+            Player player = (Player) source;
+            String name = args.<String>getOne("name").get();
 
-    /**
-     * Load configuration data for a given player.
-     *
-     * @param player Player
-     * @return PlayerConfiguration
-     */
-    public PlayerConfiguration getPlayerConfig(Player player) {
-        return getPlayerConfig(player.getUniqueId());
-    }
+            PlayerConfiguration config = Bedrock.getPlayerConfigManager().getPlayerConfig(player);
+            config.getNode("homes").removeChild(name);
+            config.save();
 
-    /**
-     * Load configuration data for a given player UUID.
-     *
-     * @param uuid UUID
-     * @return PlayerConfiguration
-     */
-    public PlayerConfiguration getPlayerConfig(UUID uuid) {
-        return new PlayerConfiguration(uuid);
-    }
+            source.sendMessage(Format.heading(String.format("Home %s deleted.", name)));
 
-    /**
-     * Unload configuration files for a given player.
-     *
-     * @param player
-     */
-    public void unload(Player player) {
-        playerConfigs.remove(player);
+            return CommandResult.success();
+        }).build();
     }
 }

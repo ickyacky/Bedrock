@@ -8,10 +8,14 @@ Drop into your `mods` folder and enjoy.
 
 # Commands
 
+- `/delhome (name)` - Delete a home.
+- `/home (name)` - Teleport to a home.
+- `/homes` - List your homes.
 - `/fly (player)` - Toggle fly for yourself or others.
 - `/(m|message) (player) (message)` - Direct message another player.
 - `/(perf|performance|gc)` - View performance stats.
 - `/(r|reply) (message)` - Reply to a direct message.
+- `/sethome (name)` - Set a home.
 - `/spy` - Toggle spying on direct messages.
 - `/tp [player]` - Teleport yourself to another player.
 - `/tphere [player]` - Teleport another player to yourself.
@@ -19,6 +23,7 @@ Drop into your `mods` folder and enjoy.
 
 # Permissions
 
+- `bedrock.home` - Use homes. Limits are define in permissions options.
 - `bedrock.fly` - Toggle fly for yourself.
 - `bedrock.fly.others` - Toggle fly for others.
 - `bedrock.message` - Direct message players.

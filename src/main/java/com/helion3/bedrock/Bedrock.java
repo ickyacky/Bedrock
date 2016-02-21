@@ -62,10 +62,14 @@ public class Bedrock {
 
         // Commands
         game.getCommandManager().register(this, BedrockCommands.getCommand(), "br", "bedrock");
+        game.getCommandManager().register(this, DeleteHomeCommand.getCommand(), "delhome");
+        game.getCommandManager().register(this, HomeCommand.getCommand(), "home");
+        game.getCommandManager().register(this, HomesCommand.getCommand(), "homes");
         game.getCommandManager().register(this, FlyCommand.getCommand(), "fly");
         game.getCommandManager().register(this, MessageCommand.getCommand(), "message", "m");
         game.getCommandManager().register(this, PerformanceCommand.getCommand(), "performance", "perf", "gc");
         game.getCommandManager().register(this, ReplyCommand.getCommand(), "r", "reply");
+        game.getCommandManager().register(this, SetHomeCommand.getCommand(), "sethome");
         game.getCommandManager().register(this, SpyCommand.getCommand(), "spy");
         game.getCommandManager().register(this, TeleportCommand.getCommand(), "tp", "teleport");
         game.getCommandManager().register(this, TeleportHereCommand.getCommand(), "tphere");
