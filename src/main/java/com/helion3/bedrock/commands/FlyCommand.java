@@ -23,7 +23,6 @@
  */
 package com.helion3.bedrock.commands;
 
-
 import com.helion3.bedrock.util.Format;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.args.GenericArguments;
@@ -62,16 +61,20 @@ public class FlyCommand {
                 return CommandResult.empty();
             }
 
-            // Set fly
-            boolean flying = player.get().get(Keys.CAN_FLY).orElse(false);
-            player.get().offer(Keys.CAN_FLY, !flying);
+            // Allow flight
+            boolean canFly = player.get().get(Keys.CAN_FLY).orElse(false);
+            player.get().offer(Keys.CAN_FLY, !canFly);
+
+            if (canFly) {
+                player.get().offer(Keys.IS_FLYING, false);
+            }
 
             // Message source
-            source.sendMessage(Format.success((flying ? "Dis" : "En") + "abled fly" + (forSelf ? "" : " for " + player.get().getName())));
+            source.sendMessage(Format.success((canFly ? "Dis" : "En") + "abled fly" + (forSelf ? "" : " for " + player.get().getName())));
 
             // Message target, if any
             if (!forSelf) {
-                player.get().sendMessage(Format.success("Fly has been" + (flying ? "Dis" : "En") + "abled"));
+                player.get().sendMessage(Format.success("Fly has been" + (canFly ? "Dis" : "En") + "abled"));
             }
 
             return CommandResult.success();
