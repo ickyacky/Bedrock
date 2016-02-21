@@ -36,7 +36,7 @@ import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameStartedServerEvent;
+import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 
 import java.io.File;
@@ -62,7 +62,7 @@ public class Bedrock {
     private ConfigurationLoader<CommentedConfigurationNode> configManager;
 
     @Listener
-    public void onServerStart(GameStartedServerEvent event) {
+    public void onServerInit(GameInitializationEvent event) {
         plugin = this;
         parentDirectory = defaultConfig.getParentFile();
 
@@ -91,6 +91,7 @@ public class Bedrock {
         game.getCommandManager().register(this, SetSpawnCommand.getCommand(), "setspawn");
         game.getCommandManager().register(this, SpawnCommand.getCommand(), "spawn");
         game.getCommandManager().register(this, SpyCommand.getCommand(), "spy");
+        game.getCommandManager().register(this, TimeCommand.getCommand(), "time");
         game.getCommandManager().register(this, TeleportCommand.getCommand(), "tp", "teleport");
         game.getCommandManager().register(this, TeleportAcceptCommand.getCommand(), "tpaccept");
         game.getCommandManager().register(this, TeleportDenyCommand.getCommand(), "tpdeny");

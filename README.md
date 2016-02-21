@@ -24,6 +24,7 @@ Drop into your `mods` folder and enjoy.
 - `/setspawn` - Set spawn for the current world.
 - `/spawn` - Teleport to the current world's spawn.
 - `/spy` - Toggle spying on direct messages.
+- `/time (dawn|day|noon|dusk|nigh|midnight)` - Change the time.
 - `/tp [player]` - Teleport yourself to another player.
 - `/tpa [player]` - Request teleport to another player.
 - `/tpaccept` - Accept a request.
@@ -45,6 +46,7 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.setspawn` - Set spawn.
 - `bedrock.spawn` - Set spawn.
 - `bedrock.spy` - Toggle spying on direct messages.
+- `bedrock.time` - Change the time.
 - `bedrock.tp` - Teleport yourself to another player.
 - `bedrock.tphere` - Teleport another player to yourself.
 - `bedrock.weather` - Change the weather.
