@@ -9,6 +9,7 @@ Drop into your `mods` folder and enjoy.
 # Commands
 
 - `/afk` - Toggle afk.
+- `/broadcast (message)` - Broadcast a message to all players.
 - `/delhome (name)` - Delete a home.
 - `/feed (player)` - Feed a player or yourself.
 - `/heal (player)` - Heal a player or yourself.
@@ -28,6 +29,7 @@ Drop into your `mods` folder and enjoy.
 # Permissions
 
 - `bedrock.afk` - Toggle yourself as afk.
+- `bedrock.broadcast` - Broadcast messages.
 - `bedrock.feed` - Feed self.
 - `bedrock.heal` - Heal self.
 - `bedrock.home` - Use homes. Limits are define in permissions options.

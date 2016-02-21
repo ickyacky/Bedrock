@@ -35,6 +35,25 @@ public class Format {
     private Format() {}
 
     /**
+     * Returns content formatted as a broadcast
+     * @param objects Object[] Content to format
+     * @return Text Formatted content.
+     */
+    public static Text broadcast(Object...objects) {
+        return broadcast(Text.of(objects));
+    }
+
+    /**
+     * Returns content formatted as a broadcast
+     * @param content Text Content to format
+     * @return Text Formatted content.
+     */
+    public static Text broadcast(Text content) {
+        checkNotNull(content);
+        return Text.of(TextColors.RED, "Broadcast: ", TextColors.RED, content);
+    }
+
+    /**
      * Returns content formatted as an error message
      * @param objects Object[] Content to format
      * @return Text Formatted content.
