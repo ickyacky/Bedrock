@@ -21,19 +21,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.helion3.bedrock.listeners;
+package com.helion3.bedrock.managers;
 
-import com.helion3.bedrock.Bedrock;
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.network.ClientConnectionEvent;
+import com.helion3.bedrock.PlayerConfiguration;
+import org.spongepowered.api.entity.living.player.Player;
 
-public class DisconnectListener {
-    @Listener
-    public void onPlayerQuit(final ClientConnectionEvent.Disconnect event) {
-        // Messaging
-        Bedrock.getMessageManager().clear(event.getTargetEntity());
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
-        // Config
-        Bedrock.getPlayerConfigManager().unload(event.getTargetEntity());
+public class PlayerConfigManager {
+    private final Map<Player, PlayerConfiguration> playerConfigs = new HashMap<>();
+
+    /**
+     * Load and cache a player's configuration file.
+     *
+     * @param player
+     */
+    public void loadPlayer(Player player) {
+        PlayerConfiguration config = getPlayerConfig(player.getUniqueId());
+        playerConfigs.put(player, config);
+    }
+
+    /**
+     * Load configuration data for a given player UUID.
+     *
+     * @param uuid UUID
+     * @return PlayerConfiguration
+     */
+    public PlayerConfiguration getPlayerConfig(UUID uuid) {
+        return new PlayerConfiguration(uuid);
+    }
+
+    /**
+     * Unload configuration files for a given player.
+     *
+     * @param player
+     */
+    public void unload(Player player) {
+        playerConfigs.remove(player);
     }
 }

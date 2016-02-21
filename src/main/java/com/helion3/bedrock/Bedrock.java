@@ -25,8 +25,9 @@ package com.helion3.bedrock;
 
 import com.google.inject.Inject;
 import com.helion3.bedrock.commands.*;
-import com.helion3.bedrock.listeners.DisconnectListener;
+import com.helion3.bedrock.listeners.*;
 import com.helion3.bedrock.managers.MessageManager;
+import com.helion3.bedrock.managers.PlayerConfigManager;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
@@ -45,6 +46,7 @@ public class Bedrock {
     private static Logger logger;
     private static final MessageManager messageManager = new MessageManager();
     private static File parentDirectory;
+    private static final PlayerConfigManager playerConfigManager = new PlayerConfigManager();
 
     @Inject
     @DefaultConfig(sharedRoot = false)
@@ -64,12 +66,14 @@ public class Bedrock {
         game.getCommandManager().register(this, MessageCommand.getCommand(), "message", "m");
         game.getCommandManager().register(this, PerformanceCommand.getCommand(), "performance", "perf", "gc");
         game.getCommandManager().register(this, ReplyCommand.getCommand(), "r", "reply");
+        game.getCommandManager().register(this, SpyCommand.getCommand(), "spy");
         game.getCommandManager().register(this, TeleportCommand.getCommand(), "tp", "teleport");
         game.getCommandManager().register(this, TeleportHereCommand.getCommand(), "tphere");
         game.getCommandManager().register(this, WeatherCommand.getCommand(), "weather");
 
         // Event Listeners
         game.getEventManager().registerListeners(this, new DisconnectListener());
+        game.getEventManager().registerListeners(this, new JoinListener());
 
         logger.info("Bedrock started.");
     }
@@ -137,5 +141,14 @@ public class Bedrock {
      */
     public static File getParentDirectory() {
         return parentDirectory;
+    }
+
+    /**
+     * Get player configuration manager.
+     *
+     * @return PlayerConfigManager
+     */
+    public static PlayerConfigManager getPlayerConfigManager() {
+        return playerConfigManager;
     }
 }

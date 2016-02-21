@@ -12,6 +12,7 @@ Drop into your `mods` folder and enjoy.
 - `/(m|message) (player) (message)` - Direct message another player.
 - `/(perf|performance|gc)` - View performance stats.
 - `/(r|reply) (message)` - Reply to a direct message.
+- `/spy` - Toggle spying on direct messages.
 - `/tp [player]` - Teleport yourself to another player.
 - `/tphere [player]` - Teleport another player to yourself.
 - `/weather (sun|sunny|clear|nice|rain|storm|thunder|thunderstorm)` - Set the weather.
@@ -22,6 +23,7 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.fly.others` - Toggle fly for others.
 - `bedrock.message` - Direct message players.
 - `bedrock.performance` - View performance stats.
+- `bedrock.spy` - Toggle spying on direct messages.
 - `bedrock.tp` - Teleport yourself to another player.
 - `bedrock.tphere` - Teleport another player to yourself.
 - `bedrock.weather` - Change the weather.

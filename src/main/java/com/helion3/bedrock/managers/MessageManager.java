@@ -24,13 +24,16 @@
 package com.helion3.bedrock.managers;
 
 import com.helion3.bedrock.Bedrock;
+import com.helion3.bedrock.PlayerConfiguration;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.channel.MessageChannel;
+import org.spongepowered.api.text.channel.MessageReceiver;
 import org.spongepowered.api.text.channel.MutableMessageChannel;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.format.TextStyles;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -66,7 +69,15 @@ public class MessageManager {
 
         // Send to watchers
         MutableMessageChannel channel = MessageChannel.permission("bedrock.socialspy").asMutable();
-        channel.getMembers().stream().filter(receiver -> receiver instanceof Player && !Bedrock.getMessageManager().playerIsSpying((Player) receiver)).forEach(channel::removeMember);
+
+        // Determine members who may/are not spying
+        ArrayList<MessageReceiver> toRemove = new ArrayList<>();
+        channel.getMembers().stream().filter(receiver -> receiver instanceof Player && !Bedrock.getMessageManager().playerIsSpying((Player) receiver)).forEach(toRemove::add);
+
+        // Remove invalid recipients
+        toRemove.forEach(channel::removeMember);
+
+        // Message!
         channel.send(Text.of(TextStyles.ITALIC, TextColors.GRAY, sender.getName(), " -> ", recipient.getName(), ": ", message));
 
         // Store sender for easy reply
@@ -100,7 +111,7 @@ public class MessageManager {
      * @return If spy enabled.
      */
     public boolean playerIsSpying(Player player) {
-        // @todo implement
-        return false;
+        PlayerConfiguration config = Bedrock.getPlayerConfigManager().getPlayerConfig(player.getUniqueId());
+        return config.getNode("messaging", "spy").getBoolean();
     }
 }

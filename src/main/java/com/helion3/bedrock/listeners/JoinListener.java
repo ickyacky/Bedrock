@@ -27,13 +27,9 @@ import com.helion3.bedrock.Bedrock;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 
-public class DisconnectListener {
+public class JoinListener {
     @Listener
-    public void onPlayerQuit(final ClientConnectionEvent.Disconnect event) {
-        // Messaging
-        Bedrock.getMessageManager().clear(event.getTargetEntity());
-
-        // Config
-        Bedrock.getPlayerConfigManager().unload(event.getTargetEntity());
+    public void onPlayerJoin(final ClientConnectionEvent.Join event) {
+        Bedrock.getPlayerConfigManager().loadPlayer(event.getTargetEntity());
     }
 }
