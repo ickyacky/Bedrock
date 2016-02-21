@@ -25,6 +25,8 @@ package com.helion3.bedrock;
 
 import com.google.inject.Inject;
 import com.helion3.bedrock.commands.*;
+import com.helion3.bedrock.listeners.DisconnectListener;
+import com.helion3.bedrock.managers.MessageManager;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
@@ -41,6 +43,7 @@ public class Bedrock {
     private static Configuration config;
     private static Game game;
     private static Logger logger;
+    private static final MessageManager messageManager = new MessageManager();
     private static File parentDirectory;
 
     @Inject
@@ -58,10 +61,15 @@ public class Bedrock {
         // Commands
         game.getCommandManager().register(this, BedrockCommands.getCommand(), "br", "bedrock");
         game.getCommandManager().register(this, FlyCommand.getCommand(), "fly");
+        game.getCommandManager().register(this, MessageCommand.getCommand(), "message", "m");
         game.getCommandManager().register(this, PerformanceCommand.getCommand(), "performance", "perf", "gc");
+        game.getCommandManager().register(this, ReplyCommand.getCommand(), "r", "reply");
         game.getCommandManager().register(this, TeleportCommand.getCommand(), "tp", "teleport");
         game.getCommandManager().register(this, TeleportHereCommand.getCommand(), "tphere");
         game.getCommandManager().register(this, WeatherCommand.getCommand(), "weather");
+
+        // Event Listeners
+        game.getEventManager().registerListeners(this, new DisconnectListener());
 
         logger.info("Bedrock started.");
     }
@@ -111,6 +119,15 @@ public class Bedrock {
     @Inject
     private void setLogger(Logger log) {
         logger = log;
+    }
+
+    /**
+     * Get the message manager.
+     *
+     * @return MessageManager
+     */
+    public static MessageManager getMessageManager() {
+        return messageManager;
     }
 
     /**
