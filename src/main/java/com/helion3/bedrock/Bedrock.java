@@ -26,6 +26,7 @@ package com.helion3.bedrock;
 import com.google.inject.Inject;
 import com.helion3.bedrock.commands.BedrockCommands;
 import com.helion3.bedrock.commands.FlyCommand;
+import com.helion3.bedrock.commands.TeleportCommand;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
@@ -59,6 +60,7 @@ public class Bedrock {
         // Commands
         game.getCommandManager().register(this, BedrockCommands.getCommand(), "br", "bedrock");
         game.getCommandManager().register(this, FlyCommand.getCommand(), "fly");
+        game.getCommandManager().register(this, TeleportCommand.getCommand(), "tp", "teleport");
 
         logger.info("Bedrock started.");
     }
