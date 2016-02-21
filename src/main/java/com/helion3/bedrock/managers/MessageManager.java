@@ -77,8 +77,13 @@ public class MessageManager {
         // Remove invalid recipients
         toRemove.forEach(channel::removeMember);
 
+        Text notification = Text.of(TextStyles.ITALIC, TextColors.GRAY, sender.getName(), " -> ", recipient.getName(), ": ", message);
+
         // Message!
-        channel.send(Text.of(TextStyles.ITALIC, TextColors.GRAY, sender.getName(), " -> ", recipient.getName(), ": ", message));
+        channel.send(notification);
+
+        // Log to console
+        Bedrock.getGame().getServer().getConsole().sendMessage(notification);
 
         // Store sender for easy reply
         setLastSender(sender, recipient);
