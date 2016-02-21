@@ -21,6 +21,8 @@ Drop into your `mods` folder and enjoy.
 - `/ping` - Verify server is responsive.
 - `/(r|reply) (message)` - Reply to a direct message.
 - `/sethome (name)` - Set a home.
+- `/setspawn` - Set spawn for the current world.
+- `/spawn` - Teleport to the current world's spawn.
 - `/spy` - Toggle spying on direct messages.
 - `/tp [player]` - Teleport yourself to another player.
 - `/tphere [player]` - Teleport another player to yourself.
@@ -37,6 +39,8 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.fly.others` - Toggle fly for others.
 - `bedrock.message` - Direct message players.
 - `bedrock.performance` - View performance stats.
+- `bedrock.setspawn` - Set spawn.
+- `bedrock.spawn` - Set spawn.
 - `bedrock.spy` - Toggle spying on direct messages.
 - `bedrock.tp` - Teleport yourself to another player.
 - `bedrock.tphere` - Teleport another player to yourself.

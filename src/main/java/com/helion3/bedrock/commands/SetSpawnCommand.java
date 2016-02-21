@@ -25,23 +25,30 @@ package com.helion3.bedrock.commands;
 
 import com.helion3.bedrock.util.Format;
 import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.channel.MessageChannel;
 
-public class BroadcastCommand {
-    private BroadcastCommand() {}
+public class SetSpawnCommand {
+    private SetSpawnCommand() {}
 
     public static CommandSpec getCommand() {
         return CommandSpec.builder()
-            .arguments(GenericArguments.remainingJoinedStrings(Text.of("message")))
-            .description(Text.of("Send a messag to all players."))
-            .permission("bedrock.broadcast")
-            .executor((source, args) -> {
-                MessageChannel.TO_ALL.send(Format.broadcast(args.<String>getOne("message").get()));
+        .description(Text.of("Sets spawn for the current world."))
+        .permission("bedrock.setspawn")
+        .executor((source, args) -> {
+            if (!(source instanceof Player)) {
+                source.sendMessage(Format.error("Only players may use this command."));
+                return CommandResult.empty();
+            }
 
-                return CommandResult.success();
-            }).build();
+            Player player = (Player) source;
+
+            player.getWorld().getProperties().setSpawnPosition(player.getLocation().getBlockPosition());
+
+            source.sendMessage(Format.heading(String.format("Updated spawn for world %s", player.getWorld().getName())));
+
+            return CommandResult.success();
+        }).build();
     }
 }
