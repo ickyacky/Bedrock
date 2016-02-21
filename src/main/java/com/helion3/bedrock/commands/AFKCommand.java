@@ -21,22 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.helion3.bedrock.listeners;
+package com.helion3.bedrock.commands;
 
 import com.helion3.bedrock.Bedrock;
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.network.ClientConnectionEvent;
+import com.helion3.bedrock.util.Format;
+import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.args.GenericArguments;
+import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
 
-public class DisconnectListener {
-    @Listener
-    public void onPlayerQuit(final ClientConnectionEvent.Disconnect event) {
-        // Messaging
-        Bedrock.getMessageManager().clear(event.getTargetEntity());
+public class AFKCommand {
+    private AFKCommand() {}
 
-        // AFK
-        Bedrock.getAFKManager().clear(event.getTargetEntity());
+    public static CommandSpec getCommand() {
+        return CommandSpec.builder()
+        .description(Text.of("Toggle AFK status."))
+        .permission("bedrock.afk")
+        .executor((source, args) -> {
+            if (!(source instanceof Player)) {
+                source.sendMessage(Format.error("Only players may use this command."));
+                return CommandResult.empty();
+            }
 
-        // Config
-        Bedrock.getPlayerConfigManager().unload(event.getTargetEntity());
+            // Toggle AFK status
+            Bedrock.getAFKManager().toggleAfk((Player) source);
+
+            return CommandResult.success();
+        }).build();
     }
 }
+

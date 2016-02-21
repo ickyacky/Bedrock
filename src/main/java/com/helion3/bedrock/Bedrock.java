@@ -26,6 +26,7 @@ package com.helion3.bedrock;
 import com.google.inject.Inject;
 import com.helion3.bedrock.commands.*;
 import com.helion3.bedrock.listeners.*;
+import com.helion3.bedrock.managers.AFKManager;
 import com.helion3.bedrock.managers.MessageManager;
 import com.helion3.bedrock.managers.PlayerConfigManager;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
@@ -41,12 +42,14 @@ import java.io.File;
 
 @Plugin(id = "Bedrock", name = "Bedrock", version = "1.0")
 public class Bedrock {
+    private static AFKManager afkManager;
     private static Configuration config;
     private static Game game;
     private static Logger logger;
     private static final MessageManager messageManager = new MessageManager();
     private static File parentDirectory;
     private static final PlayerConfigManager playerConfigManager = new PlayerConfigManager();
+    private static Bedrock plugin;
 
     @Inject
     @DefaultConfig(sharedRoot = false)
@@ -58,9 +61,17 @@ public class Bedrock {
 
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
+        plugin = this;
         parentDirectory = defaultConfig.getParentFile();
 
+        // Load configuration file
+        config = new Configuration(defaultConfig, configManager);
+
+        // Init here so Game is available
+        afkManager = new AFKManager();
+
         // Commands
+        game.getCommandManager().register(this, AFKCommand.getCommand(), "afk");
         game.getCommandManager().register(this, BedrockCommands.getCommand(), "br", "bedrock");
         game.getCommandManager().register(this, DeleteHomeCommand.getCommand(), "delhome");
         game.getCommandManager().register(this, FeedCommand.getCommand(), "feed");
@@ -81,8 +92,13 @@ public class Bedrock {
         // Event Listeners
         game.getEventManager().registerListeners(this, new DisconnectListener());
         game.getEventManager().registerListeners(this, new JoinListener());
+        game.getEventManager().registerListeners(this, new MoveListener());
 
         logger.info("Bedrock started.");
+    }
+
+    public static AFKManager getAFKManager() {
+        return afkManager;
     }
 
     /**
@@ -157,5 +173,14 @@ public class Bedrock {
      */
     public static PlayerConfigManager getPlayerConfigManager() {
         return playerConfigManager;
+    }
+
+    /**
+     * Get the plugin instance.
+     *
+     * @return Bedrock
+     */
+    public static Bedrock getPlugin() {
+        return plugin;
     }
 }

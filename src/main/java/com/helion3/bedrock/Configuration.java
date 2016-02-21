@@ -51,7 +51,15 @@ public class Configuration {
                 rootNode = configManager.load();
             }
 
-            // @todo nodes go here
+            ConfigurationNode afkInterval = rootNode.getNode("afk", "inactiveAfter");
+            if (afkInterval.isVirtual()) {
+                afkInterval.setValue(120);
+            }
+
+            ConfigurationNode afkKick = rootNode.getNode("afk", "kickAfter");
+            if (afkKick.isVirtual()) {
+                afkKick.setValue(120);
+            }
 
             // Save
             try {

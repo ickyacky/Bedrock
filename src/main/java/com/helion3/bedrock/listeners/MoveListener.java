@@ -24,19 +24,16 @@
 package com.helion3.bedrock.listeners;
 
 import com.helion3.bedrock.Bedrock;
+import com.helion3.bedrock.managers.AFKManager;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.network.ClientConnectionEvent;
+import org.spongepowered.api.event.entity.DisplaceEntityEvent;
 
-public class DisconnectListener {
+public class MoveListener {
     @Listener
-    public void onPlayerQuit(final ClientConnectionEvent.Disconnect event) {
-        // Messaging
-        Bedrock.getMessageManager().clear(event.getTargetEntity());
-
-        // AFK
-        Bedrock.getAFKManager().clear(event.getTargetEntity());
-
-        // Config
-        Bedrock.getPlayerConfigManager().unload(event.getTargetEntity());
+    public void onPlayerMove(DisplaceEntityEvent.Move event) {
+        if (event.getTargetEntity() instanceof Player) {
+            Bedrock.getAFKManager().lastActivity((Player) event.getTargetEntity());
+        }
     }
 }

@@ -24,6 +24,8 @@
 package com.helion3.bedrock.listeners;
 
 import com.helion3.bedrock.Bedrock;
+import com.helion3.bedrock.managers.AFKManager;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 
