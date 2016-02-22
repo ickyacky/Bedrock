@@ -30,6 +30,7 @@ import com.helion3.bedrock.managers.AFKManager;
 import com.helion3.bedrock.managers.MessageManager;
 import com.helion3.bedrock.managers.PlayerConfigManager;
 import com.helion3.bedrock.managers.TeleportManager;
+import com.helion3.bedrock.managers.WarpManager;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
@@ -52,6 +53,7 @@ public class Bedrock {
     private static final PlayerConfigManager playerConfigManager = new PlayerConfigManager();
     private static Bedrock plugin;
     private static TeleportManager teleportManager;
+    private static WarpManager warpManager;
 
     @Inject
     @DefaultConfig(sharedRoot = false)
@@ -72,12 +74,14 @@ public class Bedrock {
         // Init here so Game is available
         afkManager = new AFKManager();
         teleportManager = new TeleportManager();
+        warpManager = new WarpManager();
 
         // Commands
         game.getCommandManager().register(this, AFKCommand.getCommand(), "afk");
         game.getCommandManager().register(this, BedrockCommands.getCommand(), "br", "bedrock");
         game.getCommandManager().register(this, BroadcastCommand.getCommand(), "broadcast");
         game.getCommandManager().register(this, DeleteHomeCommand.getCommand(), "delhome");
+        game.getCommandManager().register(this, DeleteWarpCommand.getCommand(), "delwarp");
         game.getCommandManager().register(this, FeedCommand.getCommand(), "feed");
         game.getCommandManager().register(this, HealCommand.getCommand(), "heal");
         game.getCommandManager().register(this, HomeCommand.getCommand(), "home");
@@ -89,6 +93,7 @@ public class Bedrock {
         game.getCommandManager().register(this, ReplyCommand.getCommand(), "r", "reply");
         game.getCommandManager().register(this, SetHomeCommand.getCommand(), "sethome");
         game.getCommandManager().register(this, SetSpawnCommand.getCommand(), "setspawn");
+        game.getCommandManager().register(this, SetWarpCommand.getCommand(), "setwarp");
         game.getCommandManager().register(this, SpawnCommand.getCommand(), "spawn");
         game.getCommandManager().register(this, SpyCommand.getCommand(), "spy");
         game.getCommandManager().register(this, TimeCommand.getCommand(), "time");
@@ -97,6 +102,7 @@ public class Bedrock {
         game.getCommandManager().register(this, TeleportDenyCommand.getCommand(), "tpdeny");
         game.getCommandManager().register(this, TeleportHereCommand.getCommand(), "tphere");
         game.getCommandManager().register(this, TeleportRequestCommand.getCommand(), "tpa");
+        game.getCommandManager().register(this, WarpCommand.getCommand(), "warp", "w");
         game.getCommandManager().register(this, WeatherCommand.getCommand(), "weather");
 
         // Event Listeners
@@ -201,5 +207,14 @@ public class Bedrock {
      */
     public static TeleportManager getTeleportManager() {
         return teleportManager;
+    }
+
+    /**
+     * Get warp manager.
+     *
+     * @return WarpManager
+     */
+    public static WarpManager getWarpManager() {
+        return warpManager;
     }
 }

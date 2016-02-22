@@ -11,6 +11,7 @@ Drop into your `mods` folder and enjoy.
 - `/afk` - Toggle afk.
 - `/broadcast (message)` - Broadcast a message to all players.
 - `/delhome (name)` - Delete a home.
+- `/delwarp (name)` - Delete a warp.
 - `/feed (player)` - Feed a player or yourself.
 - `/heal (player)` - Heal a player or yourself.
 - `/home (name)` - Teleport to a home.
@@ -22,6 +23,7 @@ Drop into your `mods` folder and enjoy.
 - `/(r|reply) (message)` - Reply to a direct message.
 - `/sethome (name)` - Set a home.
 - `/setspawn` - Set spawn for the current world.
+- `/setwarp` - Create a new public warp.
 - `/spawn` - Teleport to the current world's spawn.
 - `/spy` - Toggle spying on direct messages.
 - `/time (dawn|day|noon|dusk|nigh|midnight)` - Change the time.
@@ -31,11 +33,13 @@ Drop into your `mods` folder and enjoy.
 - `/tpdeny` - Deny a request.
 - `/tphere [player]` - Teleport another player to yourself.
 - `/weather (sun|sunny|clear|nice|rain|storm|thunder|thunderstorm)` - Set the weather.
+- `/warp` - Teleport to a named location.
 
 # Permissions
 
 - `bedrock.afk` - Toggle yourself as afk.
 - `bedrock.broadcast` - Broadcast messages.
+- `bedrock.delhome` - Delete a warp.
 - `bedrock.feed` - Feed self.
 - `bedrock.heal` - Heal self.
 - `bedrock.home` - Use homes. Limits are define in permissions options.
@@ -44,9 +48,11 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.message` - Direct message players.
 - `bedrock.performance` - View performance stats.
 - `bedrock.setspawn` - Set spawn.
+- `bedrock.setwarp` - Set warps.
 - `bedrock.spawn` - Set spawn.
 - `bedrock.spy` - Toggle spying on direct messages.
 - `bedrock.time` - Change the time.
 - `bedrock.tp` - Teleport yourself to another player.
 - `bedrock.tphere` - Teleport another player to yourself.
+- `bedrock.warp` - Teleport to a named location.
 - `bedrock.weather` - Change the weather.
