@@ -28,8 +28,11 @@ import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.effect.potion.PotionEffect;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
+
+import java.util.ArrayList;
 
 public class HealCommand {
     private HealCommand() {}
@@ -53,8 +56,10 @@ public class HealCommand {
             // Feed
             player.offer(Keys.FOOD_LEVEL, 20);
 
-            player.sendMessage(Format.success("Healed!"));
+            // Remove potion effects
+            player.offer(Keys.POTION_EFFECTS, new ArrayList<>());
 
+            player.sendMessage(Format.success("Healed!"));
             return CommandResult.success();
         }).build();
     }
