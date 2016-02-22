@@ -32,6 +32,7 @@ Drop into your `mods` folder and enjoy.
 - `/tpaccept` - Accept a request.
 - `/tpdeny` - Deny a request.
 - `/tphere [player]` - Teleport another player to yourself.
+- `/vanish` - Become invisible.
 - `/weather (sun|sunny|clear|nice|rain|storm|thunder|thunderstorm)` - Set the weather.
 - `/warp` - Teleport to a named location.
 
@@ -54,5 +55,6 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.time` - Change the time.
 - `bedrock.tp` - Teleport yourself to another player.
 - `bedrock.tphere` - Teleport another player to yourself.
+- `bedrock.vanish` - Become invisible.
 - `bedrock.warp` - Teleport to a named location.
 - `bedrock.weather` - Change the weather.
