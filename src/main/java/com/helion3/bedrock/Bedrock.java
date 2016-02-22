@@ -96,6 +96,7 @@ public class Bedrock {
         game.getCommandManager().register(this, SetWarpCommand.getCommand(), "setwarp");
         game.getCommandManager().register(this, SpawnCommand.getCommand(), "spawn");
         game.getCommandManager().register(this, SpyCommand.getCommand(), "spy");
+        game.getCommandManager().register(this, StaffCommand.getCommand(), "staff");
         game.getCommandManager().register(this, TimeCommand.getCommand(), "time");
         game.getCommandManager().register(this, TeleportCommand.getCommand(), "tp", "teleport");
         game.getCommandManager().register(this, TeleportAcceptCommand.getCommand(), "tpaccept");

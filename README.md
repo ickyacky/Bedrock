@@ -26,6 +26,7 @@ Drop into your `mods` folder and enjoy.
 - `/setwarp` - Create a new public warp.
 - `/spawn` - Teleport to the current world's spawn.
 - `/spy` - Toggle spying on direct messages.
+- `/staff` - Lists all staff currently online.
 - `/time (dawn|day|noon|dusk|nigh|midnight)` - Change the time.
 - `/tp [player]` - Teleport yourself to another player.
 - `/tpa [player]` - Request teleport to another player.
@@ -52,6 +53,7 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.setwarp` - Set warps.
 - `bedrock.spawn` - Set spawn.
 - `bedrock.spy` - Toggle spying on direct messages.
+- `bedrock.staff` - Show up as staff.
 - `bedrock.time` - Change the time.
 - `bedrock.tp` - Teleport yourself to another player.
 - `bedrock.tphere` - Teleport another player to yourself.
