@@ -116,7 +116,6 @@ public class AFKManager {
             .delay(10L, TimeUnit.SECONDS)
             .interval(10L, TimeUnit.SECONDS)
             .execute(() -> {
-                System.out.println("inactive schedule");
                 int activityThreshhold = Bedrock.getConfig().getNode("afk", "inactiveAfter").getInt();
 
                 // Iterate all inactive players

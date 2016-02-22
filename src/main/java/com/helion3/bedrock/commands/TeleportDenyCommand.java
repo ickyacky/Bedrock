@@ -26,28 +26,25 @@ package com.helion3.bedrock.commands;
 import com.helion3.bedrock.Bedrock;
 import com.helion3.bedrock.util.Format;
 import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
-public class TeleportCommand {
-    private TeleportCommand() {}
+public class TeleportDenyCommand {
+    private TeleportDenyCommand() {}
 
     public static CommandSpec getCommand() {
         return CommandSpec.builder()
-        .arguments(
-            GenericArguments.player(Text.of("player"))
-        )
-        .description(Text.of("Teleport to another player."))
-        .permission("bedrock.tp")
+        .description(Text.of("Deny a teleport request."))
+        .permission("bedrock.tpa")
         .executor((source, args) -> {
             if (!(source instanceof Player)) {
                 source.sendMessage(Format.error("Only players may use this command."));
                 return CommandResult.empty();
             }
 
-            Bedrock.getTeleportManager().teleport((Player) source, args.<Player>getOne("player").get());
+            // Request...
+            Bedrock.getTeleportManager().deny((Player) source);
 
             return CommandResult.success();
         }).build();

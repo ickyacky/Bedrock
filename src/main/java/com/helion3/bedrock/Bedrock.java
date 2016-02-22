@@ -29,6 +29,7 @@ import com.helion3.bedrock.listeners.*;
 import com.helion3.bedrock.managers.AFKManager;
 import com.helion3.bedrock.managers.MessageManager;
 import com.helion3.bedrock.managers.PlayerConfigManager;
+import com.helion3.bedrock.managers.TeleportManager;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
@@ -50,6 +51,7 @@ public class Bedrock {
     private static File parentDirectory;
     private static final PlayerConfigManager playerConfigManager = new PlayerConfigManager();
     private static Bedrock plugin;
+    private static TeleportManager teleportManager;
 
     @Inject
     @DefaultConfig(sharedRoot = false)
@@ -69,6 +71,7 @@ public class Bedrock {
 
         // Init here so Game is available
         afkManager = new AFKManager();
+        teleportManager = new TeleportManager();
 
         // Commands
         game.getCommandManager().register(this, AFKCommand.getCommand(), "afk");
@@ -89,7 +92,10 @@ public class Bedrock {
         game.getCommandManager().register(this, SpawnCommand.getCommand(), "spawn");
         game.getCommandManager().register(this, SpyCommand.getCommand(), "spy");
         game.getCommandManager().register(this, TeleportCommand.getCommand(), "tp", "teleport");
+        game.getCommandManager().register(this, TeleportAcceptCommand.getCommand(), "tpaccept");
+        game.getCommandManager().register(this, TeleportDenyCommand.getCommand(), "tpdeny");
         game.getCommandManager().register(this, TeleportHereCommand.getCommand(), "tphere");
+        game.getCommandManager().register(this, TeleportRequestCommand.getCommand(), "tpa");
         game.getCommandManager().register(this, WeatherCommand.getCommand(), "weather");
 
         // Event Listeners
@@ -185,5 +191,14 @@ public class Bedrock {
      */
     public static Bedrock getPlugin() {
         return plugin;
+    }
+
+    /**
+     * Get the teleport manager.
+     *
+     * @return TeleportManager
+     */
+    public static TeleportManager getTeleportManager() {
+        return teleportManager;
     }
 }

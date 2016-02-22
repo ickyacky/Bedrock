@@ -31,23 +31,24 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
-public class TeleportCommand {
-    private TeleportCommand() {}
+public class TeleportRequestCommand {
+    private TeleportRequestCommand() {}
 
     public static CommandSpec getCommand() {
         return CommandSpec.builder()
         .arguments(
             GenericArguments.player(Text.of("player"))
         )
-        .description(Text.of("Teleport to another player."))
-        .permission("bedrock.tp")
+        .description(Text.of("Request teleport to another player."))
+        .permission("bedrock.tpa")
         .executor((source, args) -> {
             if (!(source instanceof Player)) {
                 source.sendMessage(Format.error("Only players may use this command."));
                 return CommandResult.empty();
             }
 
-            Bedrock.getTeleportManager().teleport((Player) source, args.<Player>getOne("player").get());
+            // Request...
+            Bedrock.getTeleportManager().request((Player) source, args.<Player>getOne("player").get());
 
             return CommandResult.success();
         }).build();

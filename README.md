@@ -25,6 +25,9 @@ Drop into your `mods` folder and enjoy.
 - `/spawn` - Teleport to the current world's spawn.
 - `/spy` - Toggle spying on direct messages.
 - `/tp [player]` - Teleport yourself to another player.
+- `/tpa [player]` - Request teleport to another player.
+- `/tpaccept` - Accept a request.
+- `/tpdeny` - Deny a request.
 - `/tphere [player]` - Teleport another player to yourself.
 - `/weather (sun|sunny|clear|nice|rain|storm|thunder|thunderstorm)` - Set the weather.
 
