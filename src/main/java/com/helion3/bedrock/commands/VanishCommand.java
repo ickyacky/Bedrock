@@ -49,7 +49,7 @@ public class VanishCommand {
                 boolean wasVisible = player.get(Keys.INVISIBLE).orElse(false);
                 player.offer(Keys.INVISIBLE, !wasVisible);
 
-                source.sendMessage(Format.success("You're now " + (wasVisible ? "in" : "") + "visible"));
+                source.sendMessage(Format.success("You're now " + (wasVisible ? "" : "in") + "visible"));
 
                 return CommandResult.success();
             }).build();

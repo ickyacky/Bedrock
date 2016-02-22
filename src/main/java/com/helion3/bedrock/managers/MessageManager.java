@@ -79,7 +79,10 @@ public class MessageManager {
 
         Text notification = Text.of(TextStyles.ITALIC, TextColors.GRAY, sender.getName(), " -> ", recipient.getName(), ": ", message);
 
-        // Message!
+        // Notify sender
+        sender.sendMessage(notification);
+
+        // Message any spies
         channel.send(notification);
 
         // Log to console

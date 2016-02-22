@@ -85,12 +85,12 @@ public class TimeCommand {
 
                 }
 
-                source.sendMessage(Format.success(String.format("Changes the time to %s", timeOfDay.get().toLowerCase())));
+                source.sendMessage(Format.success(String.format("Changed the time to %s", timeOfDay.get().toLowerCase())));
             }
 
             else if (time.isPresent()) {
                 player.getWorld().getProperties().setWorldTime(time.get());
-                source.sendMessage(Format.success(String.format("Changes the time to %d", time.get())));
+                source.sendMessage(Format.success(String.format("Changed the time to %d", time.get())));
             }
 
             return CommandResult.success();

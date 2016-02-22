@@ -44,13 +44,13 @@ public class TeleportManager {
     public void request(Player source, Player target) {
         pendingRequests.put(target, source);
 
-        source.sendMessage(Text.of(TextColors.YELLOW, String.format("%s is requesting to teleport to you\n", source.getName()),
+        target.sendMessage(Text.of(TextColors.YELLOW, String.format("%s is requesting to teleport to you\n", source.getName()),
             TextColors.WHITE, "Use /tpaccept or /tpdeny within 20 seconds"));
 
-        target.sendMessage(Format.subdued("Sending request..."));
+        source.sendMessage(Format.subdued("Sending request..."));
 
         Bedrock.getGame().getScheduler().createTaskBuilder().delayTicks(400L).execute(() -> {
-            Player entry = pendingRequests.remove(source);
+            Player entry = pendingRequests.remove(target);
 
             if (entry != null) {
                 target.sendMessage(Format.subdued("Your request did not receive a response."));
@@ -67,7 +67,12 @@ public class TeleportManager {
         if (!pendingRequests.containsKey(player)) {
             player.sendMessage(Format.error("You do not have any pending requests."));
         } else {
-            teleport(pendingRequests.get(player), player);
+            Player requester = pendingRequests.get(player);
+
+            requester.sendMessage(Format.message("Sorry, your request was denied."));
+            player.sendMessage(Format.success(String.format("Teleporting %s....", requester.getName())));
+
+            teleport(requester, player);
             pendingRequests.remove(player);
         }
     }
@@ -81,7 +86,11 @@ public class TeleportManager {
         if (!pendingRequests.containsKey(player)) {
             player.sendMessage(Format.error("You do not have any pending requests."));
         } else {
-            pendingRequests.get(player).sendMessage(Format.message("Sorry, your request was denied."));
+            Player requester = pendingRequests.get(player);
+
+            requester.sendMessage(Format.message("Sorry, your request was denied."));
+            player.sendMessage(Format.success(String.format("Denied %s's tp request.", requester.getName())));
+
             pendingRequests.remove(player);
         }
     }

@@ -75,6 +75,8 @@ public class WeatherCommand {
             // Set the weather
             player.getWorld().forecast(weather);
 
+            source.sendMessage(Format.success(String.format("Changed the weather to %s", forecast)));
+
             return CommandResult.success();
         }).build();
     }
