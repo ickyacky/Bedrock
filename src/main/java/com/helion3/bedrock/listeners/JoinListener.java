@@ -25,13 +25,26 @@ package com.helion3.bedrock.listeners;
 
 import com.helion3.bedrock.Bedrock;
 import com.helion3.bedrock.managers.AFKManager;
+import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.channel.MessageChannel;
+import org.spongepowered.api.text.format.TextColors;
 
 public class JoinListener {
     @Listener
     public void onPlayerJoin(final ClientConnectionEvent.Join event) {
-        Bedrock.getPlayerConfigManager().loadPlayer(event.getTargetEntity());
+        Player player = event.getTargetEntity();
+
+        // Create/load config
+        Bedrock.getPlayerConfigManager().loadPlayer(player);
+
+        // Is brand new?
+        if (player.get(Keys.FIRST_DATE_PLAYED).get().equals(player.get(Keys.LAST_DATE_PLAYED).get())) {
+            MessageChannel.TO_ALL.send(Text.of(TextColors.GOLD, "Welcome ", TextColors.LIGHT_PURPLE,
+                player.getName(),TextColors.GOLD, " to DHMC!"));
+        }
     }
 }
