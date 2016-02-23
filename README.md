@@ -36,6 +36,7 @@ Drop into your `mods` folder and enjoy.
 - `/vanish` - Become invisible.
 - `/weather (sun|sunny|clear|nice|rain|storm|thunder|thunderstorm)` - Set the weather.
 - `/warp` - Teleport to a named location.
+- `/world difficulty` - Set difficulty for current world.
 
 # Permissions
 
@@ -60,3 +61,4 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.vanish` - Become invisible.
 - `bedrock.warp` - Teleport to a named location.
 - `bedrock.weather` - Change the weather.
+- `bedrock.world.difficulty` - Set difficulty for current world.
