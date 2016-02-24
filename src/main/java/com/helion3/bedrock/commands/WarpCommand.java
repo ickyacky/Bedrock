@@ -60,7 +60,6 @@ public class WarpCommand {
             }
 
             ((Player) source).setLocation(location.get());
-
             source.sendMessage(Format.heading(String.format("Teleporting to %s.", name)));
 
             return CommandResult.success();

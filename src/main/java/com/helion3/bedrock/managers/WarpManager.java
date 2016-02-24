@@ -23,9 +23,11 @@
  */
 package com.helion3.bedrock.managers;
 
+import com.google.common.collect.ImmutableList;
 import com.helion3.bedrock.Bedrock;
 import com.helion3.bedrock.NamedConfiguration;
 import ninja.leaping.configurate.ConfigurationNode;
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -94,5 +96,19 @@ public class WarpManager {
         }
 
         return Optional.empty();
+    }
+
+    /**
+     * Get a list of all warps.
+     *
+     * @return ImmutableList of warps
+     */
+    public ImmutableList<Text> getWarpList() {
+        ImmutableList.Builder<Text> builder = ImmutableList.builder();
+        for (Object obj : config.getRootNode().getChildrenMap().keySet()) {
+            builder.add(Text.of((String) obj));
+        }
+
+        return builder.build();
     }
 }

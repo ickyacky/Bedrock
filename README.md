@@ -36,6 +36,7 @@ Drop into your `mods` folder and enjoy.
 - `/vanish` - Become invisible.
 - `/weather (sun|sunny|clear|nice|rain|storm|thunder|thunderstorm)` - Set the weather.
 - `/warp` - Teleport to a named location.
+- `/warps` - List warps.
 - `/world difficulty` - Set difficulty for current world.
 
 # Permissions
