@@ -31,13 +31,16 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
+import java.util.Optional;
+
 public class TeleportCommand {
     private TeleportCommand() {}
 
     public static CommandSpec getCommand() {
         return CommandSpec.builder()
         .arguments(
-            GenericArguments.player(Text.of("player"))
+            GenericArguments.playerOrSource(Text.of("player")),
+            GenericArguments.optional(GenericArguments.player(Text.of("target")))
         )
         .description(Text.of("Teleport to another player."))
         .permission("bedrock.tp")
@@ -47,7 +50,17 @@ public class TeleportCommand {
                 return CommandResult.empty();
             }
 
-            Bedrock.getTeleportManager().teleport((Player) source, args.<Player>getOne("player").get());
+            Player sourceOrTarget = args.<Player>getOne("player").get();
+            Player target;
+
+            if (args.<Player>getOne("target").isPresent()) {
+                target = args.<Player>getOne("target").get();
+            } else {
+                target = sourceOrTarget;
+                sourceOrTarget = (Player) source;
+            }
+
+            Bedrock.getTeleportManager().teleport(sourceOrTarget, target);
 
             return CommandResult.success();
         }).build();

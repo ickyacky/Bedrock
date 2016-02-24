@@ -28,11 +28,14 @@ Drop into your `mods` folder and enjoy.
 - `/spy` - Toggle spying on direct messages.
 - `/staff` - Lists all staff currently online.
 - `/time (dawn|day|noon|dusk|nigh|midnight)` - Change the time.
-- `/tp [player]` - Teleport yourself to another player.
+- `/tp [player] (player)` - Teleport yourself/player to another player.
 - `/tpa [player]` - Request teleport to another player.
 - `/tpaccept` - Accept a request.
+- `/tpahere [player]` - Request another player to teleport to you.
 - `/tpdeny` - Deny a request.
 - `/tphere [player]` - Teleport another player to yourself.
+- `/tppos [x] [y] [z]` - Teleport to a location.
+- `/tpword [world]` - Teleport to another world.
 - `/vanish` - Become invisible.
 - `/weather (sun|sunny|clear|nice|rain|storm|thunder|thunderstorm)` - Set the weather.
 - `/warp` - Teleport to a named location.
@@ -60,7 +63,10 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.staff` - Show up as staff.
 - `bedrock.time` - Change the time.
 - `bedrock.tp` - Teleport yourself to another player.
+- `bedrock.tpa` - Request teleports.
 - `bedrock.tphere` - Teleport another player to yourself.
+- `bedrock.tppos` - Teleport yourself to another player.
+- `bedrock.tpworld` - Teleport to a world.
 - `bedrock.vanish` - Become invisible.
 - `bedrock.warp` - Teleport to a named location.
 - `bedrock.weather` - Change the weather.

@@ -23,37 +23,66 @@
  */
 package com.helion3.bedrock.managers;
 
+import com.flowpowered.math.vector.Vector3d;
 import com.helion3.bedrock.Bedrock;
 import com.helion3.bedrock.util.Format;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.world.World;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class TeleportManager {
-    private final Map<Player, Player> pendingRequests = new HashMap<>();
+    private final Map<Player, Teleport> pendingRequests = new HashMap<>();
+
+    public static class Teleport {
+        private final Player source;
+        private final Player target;
+        private Player requestedBy;
+
+        public Teleport(Player source, Player target) {
+            this.source = source;
+            this.target = target;
+        }
+
+        public Optional<Player> getRequester() {
+            return Optional.ofNullable(requestedBy);
+        }
+
+        public Player getSource() {
+            return source;
+        }
+
+        public Player getTarget() {
+            return target;
+        }
+
+        public void setRequestedBy(Player player) {
+            this.requestedBy = player;
+        }
+    }
 
     /**
      * Request a teleport to another player.
      *
-     * @param source Player to teleport
-     * @param target Player target
+     * @param teleport Teleport
      */
-    public void request(Player source, Player target) {
-        pendingRequests.put(target, source);
+    public void request(Teleport teleport) {
+        // Store
+        pendingRequests.put(teleport.getTarget(), teleport);
 
-        target.sendMessage(Text.of(TextColors.YELLOW, String.format("%s is requesting to teleport to you\n", source.getName()),
+        teleport.getTarget().sendMessage(Text.of(TextColors.YELLOW,
+            String.format("%s is requesting to teleport to you\n", teleport.getSource().getName()),
             TextColors.WHITE, "Use /tpaccept or /tpdeny within 20 seconds"));
 
-        source.sendMessage(Format.subdued("Sending request..."));
-
+        // Handle request
+        teleport.getSource().sendMessage(Format.subdued("Sending request..."));
         Bedrock.getGame().getScheduler().createTaskBuilder().delayTicks(400L).execute(() -> {
-            Player entry = pendingRequests.remove(target);
-
-            if (entry != null) {
-                target.sendMessage(Format.subdued("Your request did not receive a response."));
+            if (pendingRequests.remove(teleport.getTarget()) != null) {
+                teleport.getTarget().sendMessage(Format.subdued("Your request did not receive a response."));
             }
         }).submit(Bedrock.getPlugin());
     }
@@ -67,7 +96,8 @@ public class TeleportManager {
         if (!pendingRequests.containsKey(player)) {
             player.sendMessage(Format.error("You do not have any pending requests."));
         } else {
-            Player requester = pendingRequests.get(player);
+            Teleport request = pendingRequests.get(player);
+            Player requester = request.getRequester().get();
 
             requester.sendMessage(Format.message("Sorry, your request was denied."));
             player.sendMessage(Format.success(String.format("Teleporting %s....", requester.getName())));
@@ -86,7 +116,8 @@ public class TeleportManager {
         if (!pendingRequests.containsKey(player)) {
             player.sendMessage(Format.error("You do not have any pending requests."));
         } else {
-            Player requester = pendingRequests.get(player);
+            Teleport request = pendingRequests.get(player);
+            Player requester = request.getRequester().get();
 
             requester.sendMessage(Format.message("Sorry, your request was denied."));
             player.sendMessage(Format.success(String.format("Denied %s's tp request.", requester.getName())));
@@ -107,5 +138,34 @@ public class TeleportManager {
 
         // Message
         source.sendMessage(Format.success(String.format("Teleporting you to %s", target.getName())));
+    }
+
+    /**
+     * Teleport a player to a specific location.
+     *
+     * @param source Player to teleport
+     * @param position Vector3d teleporting to
+     */
+    public void teleport(Player source, Vector3d position) {
+        // Teleport
+        source.setLocation(source.getWorld().getLocation(position));
+
+        // Message
+        source.sendMessage(Format.success(
+            String.format("Teleporting you to %d %d %d", position.getX(), position.getY(), position.getZ())));
+    }
+
+    /**
+     * Teleport a player to another world.
+     *
+     * @param source Player to teleport
+     * @param world World teleporting to
+     */
+    public void teleport(Player source, World world) {
+        // Teleport
+        source.transferToWorld(world.getUniqueId(), world.getSpawnLocation().getPosition());
+
+        // Message
+        source.sendMessage(Format.success(String.format("Teleporting you to world %s", world.getName())));
     }
 }

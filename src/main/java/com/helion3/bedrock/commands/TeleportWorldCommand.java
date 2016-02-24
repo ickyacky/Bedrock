@@ -24,34 +24,31 @@
 package com.helion3.bedrock.commands;
 
 import com.helion3.bedrock.Bedrock;
-import com.helion3.bedrock.managers.TeleportManager.Teleport;
 import com.helion3.bedrock.util.Format;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.world.World;
 
-public class TeleportRequestCommand {
-    private TeleportRequestCommand() {}
+public class TeleportWorldCommand {
+    private TeleportWorldCommand() {}
 
     public static CommandSpec getCommand() {
         return CommandSpec.builder()
         .arguments(
-            GenericArguments.player(Text.of("player"))
+            GenericArguments.world(Text.of("world"))
         )
-        .description(Text.of("Request teleport to another player."))
-        .permission("bedrock.tpa")
+        .description(Text.of("Teleport to a world."))
+        .permission("bedrock.tpworld")
         .executor((source, args) -> {
             if (!(source instanceof Player)) {
                 source.sendMessage(Format.error("Only players may use this command."));
                 return CommandResult.empty();
             }
 
-            // Request...
-            Teleport teleport = new Teleport((Player) source, args.<Player>getOne("player").get());
-            teleport.setRequestedBy((Player) source);
-            Bedrock.getTeleportManager().request(teleport);
+            Bedrock.getTeleportManager().teleport((Player) source, args.<World>getOne("world").get());
 
             return CommandResult.success();
         }).build();

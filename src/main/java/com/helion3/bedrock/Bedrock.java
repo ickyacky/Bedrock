@@ -102,7 +102,10 @@ public class Bedrock {
         game.getCommandManager().register(this, TeleportAcceptCommand.getCommand(), "tpaccept");
         game.getCommandManager().register(this, TeleportDenyCommand.getCommand(), "tpdeny");
         game.getCommandManager().register(this, TeleportHereCommand.getCommand(), "tphere");
+        game.getCommandManager().register(this, TeleportHereRequestCommand.getCommand(), "tpahere");
+        game.getCommandManager().register(this, TeleportPositionCommand.getCommand(), "tppos");
         game.getCommandManager().register(this, TeleportRequestCommand.getCommand(), "tpa");
+        game.getCommandManager().register(this, TeleportWorldCommand.getCommand(), "world");
         game.getCommandManager().register(this, VanishCommand.getCommand(), "vanish", "v");
         game.getCommandManager().register(this, WarpCommand.getCommand(), "warp", "w");
         game.getCommandManager().register(this, WarpsCommand.getCommand(), "warps");

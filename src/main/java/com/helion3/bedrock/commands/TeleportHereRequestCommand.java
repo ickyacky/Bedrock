@@ -32,15 +32,15 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
-public class TeleportRequestCommand {
-    private TeleportRequestCommand() {}
+public class TeleportHereRequestCommand {
+    private TeleportHereRequestCommand() {}
 
     public static CommandSpec getCommand() {
         return CommandSpec.builder()
         .arguments(
             GenericArguments.player(Text.of("player"))
         )
-        .description(Text.of("Request teleport to another player."))
+        .description(Text.of("Request another player teleport to you."))
         .permission("bedrock.tpa")
         .executor((source, args) -> {
             if (!(source instanceof Player)) {
@@ -49,7 +49,7 @@ public class TeleportRequestCommand {
             }
 
             // Request...
-            Teleport teleport = new Teleport((Player) source, args.<Player>getOne("player").get());
+            Teleport teleport = new Teleport(args.<Player>getOne("player").get(), (Player) source);
             teleport.setRequestedBy((Player) source);
             Bedrock.getTeleportManager().request(teleport);
 
