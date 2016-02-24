@@ -39,15 +39,29 @@ public class FeedCommand {
         .arguments(
             GenericArguments.playerOrSource(Text.of("player"))
         )
-        .description(Text.of("Heal a player."))
-        .permission("bedrock.feed")
+        .description(Text.of("Feed yourself or another player."))
         .executor((source, args) -> {
             Player player = args.<Player>getOne("player").get();
+            boolean forSelf = source.equals(player);
+
+            // Permissions
+            if (!forSelf && !source.hasPermission("bedrock.feed.others")) {
+                source.sendMessage(Format.error("You do not have permission to feed other players."));
+                return CommandResult.empty();
+            }
+            else if (forSelf && !source.hasPermission("bedrock.feed")) {
+                source.sendMessage(Format.error("Insufficient permissions."));
+                return CommandResult.empty();
+            }
 
             // Feed
             player.offer(Keys.FOOD_LEVEL, 20);
 
-            player.sendMessage(Format.success("Healed!"));
+            // Message
+            player.sendMessage(Format.success("Fed you!"));
+            if (!forSelf) {
+                source.sendMessage(Format.success(String.format("Fed %s", player.getName())));
+            }
 
             return CommandResult.success();
         }).build();

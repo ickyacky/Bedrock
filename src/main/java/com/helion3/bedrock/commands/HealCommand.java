@@ -42,10 +42,20 @@ public class HealCommand {
         .arguments(
             GenericArguments.playerOrSource(Text.of("player"))
         )
-        .description(Text.of("Heal a player."))
-        .permission("bedrock.heal")
+        .description(Text.of("Heal yourself or another player."))
         .executor((source, args) -> {
             Player player = args.<Player>getOne("player").get();
+            boolean forSelf = source.equals(player);
+
+            // Permissions
+            if (!forSelf && !source.hasPermission("bedrock.heal.others")) {
+                source.sendMessage(Format.error("You do not have permission to heal other players."));
+                return CommandResult.empty();
+            }
+            else if (forSelf && !source.hasPermission("bedrock.heal")) {
+                source.sendMessage(Format.error("Insufficient permissions."));
+                return CommandResult.empty();
+            }
 
             // Extinquish
             player.offer(Keys.FIRE_TICKS, 0);
@@ -59,7 +69,12 @@ public class HealCommand {
             // Remove potion effects
             player.offer(Keys.POTION_EFFECTS, new ArrayList<>());
 
+            // Message
             player.sendMessage(Format.success("Healed!"));
+            if (!forSelf) {
+                source.sendMessage(Format.success(String.format("Healed %s", player.getName())));
+            }
+
             return CommandResult.success();
         }).build();
     }

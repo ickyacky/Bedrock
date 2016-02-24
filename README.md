@@ -44,7 +44,9 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.broadcast` - Broadcast messages.
 - `bedrock.delhome` - Delete a warp.
 - `bedrock.feed` - Feed self.
+- `bedrock.feed.others` - Feed others.
 - `bedrock.heal` - Heal self.
+- `bedrock.heal.others` - Heal others.
 - `bedrock.home` - Use homes. Limits are define in permissions options.
 - `bedrock.fly` - Toggle fly for yourself.
 - `bedrock.fly.others` - Toggle fly for others.
