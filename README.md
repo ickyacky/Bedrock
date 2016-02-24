@@ -17,6 +17,7 @@ Drop into your `mods` folder and enjoy.
 - `/home (name)` - Teleport to a home.
 - `/homes` - List your homes.
 - `/fly (player)` - Toggle fly for yourself or others.
+- `/list` - List all online players.
 - `/(m|message) (player) (message)` - Direct message another player.
 - `/(perf|performance|gc)` - View performance stats.
 - `/ping` - Verify server is responsive.
