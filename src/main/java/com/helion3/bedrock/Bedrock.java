@@ -83,10 +83,10 @@ public class Bedrock {
         game.getCommandManager().register(this, DeleteHomeCommand.getCommand(), "delhome");
         game.getCommandManager().register(this, DeleteWarpCommand.getCommand(), "delwarp");
         game.getCommandManager().register(this, FeedCommand.getCommand(), "feed");
+        game.getCommandManager().register(this, FlyCommand.getCommand(), "fly");
         game.getCommandManager().register(this, HealCommand.getCommand(), "heal");
         game.getCommandManager().register(this, HomeCommand.getCommand(), "home");
         game.getCommandManager().register(this, HomesCommand.getCommand(), "homes");
-        game.getCommandManager().register(this, FlyCommand.getCommand(), "fly");
         game.getCommandManager().register(this, ListCommand.getCommand(), "list");
         game.getCommandManager().register(this, MessageCommand.getCommand(), "message", "m", "msg");
         game.getCommandManager().register(this, PerformanceCommand.getCommand(), "performance", "perf", "gc");
@@ -98,7 +98,6 @@ public class Bedrock {
         game.getCommandManager().register(this, SpawnCommand.getCommand(), "spawn");
         game.getCommandManager().register(this, SpyCommand.getCommand(), "spy");
         game.getCommandManager().register(this, StaffCommand.getCommand(), "staff");
-        game.getCommandManager().register(this, TimeCommand.getCommand(), "time");
         game.getCommandManager().register(this, TeleportCommand.getCommand(), "tp", "teleport");
         game.getCommandManager().register(this, TeleportAcceptCommand.getCommand(), "tpaccept");
         game.getCommandManager().register(this, TeleportDenyCommand.getCommand(), "tpdeny");
@@ -107,6 +106,7 @@ public class Bedrock {
         game.getCommandManager().register(this, TeleportPositionCommand.getCommand(), "tppos");
         game.getCommandManager().register(this, TeleportRequestCommand.getCommand(), "tpa");
         game.getCommandManager().register(this, TeleportWorldCommand.getCommand(), "tpworld");
+        game.getCommandManager().register(this, TimeCommand.getCommand(), "time");
         game.getCommandManager().register(this, VanishCommand.getCommand(), "vanish", "v");
         game.getCommandManager().register(this, WarpCommand.getCommand(), "warp", "w");
         game.getCommandManager().register(this, WarpsCommand.getCommand(), "warps");
