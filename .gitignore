@@ -55,7 +55,3 @@ manifest.mf
 # Mac filesystem dust
 .DS_Store
 
-# Other Libraries
-*.jar
-
-
