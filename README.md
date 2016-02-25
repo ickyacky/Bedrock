@@ -4,6 +4,10 @@ Essential commands for Sponge-based Minecraft servers.
 
 ![Bedrock](http://helion3.s3.amazonaws.com/bedrock.png)
 
+## Downloads
+
+- [Builds](http://dhmc.us:8080/job/Bedrock/)
+
 # Installation
 
 Drop into your `mods` folder, set any permissions, and enjoy.
