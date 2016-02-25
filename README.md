@@ -38,7 +38,7 @@ Drop into your `mods` folder, set any permissions, and enjoy.
 - `/tpdeny` - Deny a request.
 - `/tphere [player]` - Teleport another player to yourself.
 - `/tppos [x] [y] [z]` - Teleport to a location.
-- `/tpword [world]` - Teleport to another world.
+- `/tpworld [world]` - Teleport to another world.
 - `/vanish` - Become invisible.
 - `/weather (sun|sunny|clear|nice|rain|storm|thunder|thunderstorm)` - Set the weather.
 - `/warp` - Teleport to a named location.
