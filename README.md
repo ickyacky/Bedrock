@@ -2,9 +2,11 @@
 
 Essential commands for Sponge-based Minecraft servers.
 
+![Bedrock](http://helion3.s3.amazonaws.com/bedrock.png)
+
 # Installation
 
-Drop into your `mods` folder and enjoy.
+Drop into your `mods` folder, set any permissions, and enjoy.
 
 # Commands
 
@@ -72,3 +74,13 @@ Drop into your `mods` folder and enjoy.
 - `bedrock.warp` - Teleport to a named location.
 - `bedrock.weather` - Change the weather.
 - `bedrock.world.difficulty` - Set difficulty for current world.
+
+## IRC
+
+Please follow development on `irc.esper.net` in `#prism`
+
+## Credits
+
+- viveleroi (*Creator, Lead Dev*)
+- Aiden880 (*Contributor*)
+- Dev Testing: Ollie2000, ickyacky
