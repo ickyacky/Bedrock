@@ -115,7 +115,9 @@ public class Bedrock {
 
         // Event Listeners
         game.getEventManager().registerListeners(this, new DisconnectListener());
+        game.getEventManager().registerListeners(this, new FishingListener());
         game.getEventManager().registerListeners(this, new JoinListener());
+        game.getEventManager().registerListeners(this, new MessageChannelListener());
         game.getEventManager().registerListeners(this, new MoveListener());
 
         logger.info("Bedrock started.");
