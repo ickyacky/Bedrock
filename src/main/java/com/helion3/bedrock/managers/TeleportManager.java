@@ -71,17 +71,20 @@ public class TeleportManager {
      * @param teleport Teleport
      */
     public void request(Teleport teleport) {
-        // Store
-        pendingRequests.put(teleport.getTarget(), teleport);
+        Player target = teleport.getTarget();
+        Player requester = teleport.getRequester().get();
 
-        teleport.getTarget().sendMessage(Text.of(TextColors.YELLOW,
-            String.format("%s is requesting to teleport to you\n", teleport.getSource().getName()),
+        // Store
+        pendingRequests.put(target, teleport);
+
+        target.sendMessage(Text.of(TextColors.YELLOW,
+            String.format("%s is requesting to teleport to you\n", requester.getName()),
             TextColors.WHITE, "Use /tpaccept or /tpdeny within 20 seconds"));
 
         // Handle request
-        teleport.getSource().sendMessage(Format.subdued("Sending request..."));
+        requester.sendMessage(Format.subdued("Sending request..."));
         Bedrock.getGame().getScheduler().createTaskBuilder().delayTicks(400L).execute(() -> {
-            if (pendingRequests.remove(teleport.getTarget()) != null) {
+            if (pendingRequests.remove(target) != null) {
                 teleport.getTarget().sendMessage(Format.subdued("Your request did not receive a response."));
             }
         }).submit(Bedrock.getPlugin());
@@ -99,8 +102,8 @@ public class TeleportManager {
             Teleport request = pendingRequests.get(player);
             Player requester = request.getRequester().get();
 
-            requester.sendMessage(Format.message("Sorry, your request was denied."));
-            player.sendMessage(Format.success(String.format("Teleporting %s....", requester.getName())));
+            requester.sendMessage(Format.success(String.format("Teleporting %s....", player.getName())));
+            player.sendMessage(Format.message(String.format("Teleporting you to %s", requester.getName())));
 
             teleport(requester, player);
             pendingRequests.remove(player);
@@ -152,7 +155,7 @@ public class TeleportManager {
 
         // Message
         source.sendMessage(Format.success(
-            String.format("Teleporting you to %d %d %d", position.getX(), position.getY(), position.getZ())));
+            String.format("Teleporting you to %f %f %f", position.getX(), position.getY(), position.getZ())));
     }
 
     /**

@@ -43,7 +43,7 @@ public class ListCommand {
             .executor((source, args) -> {
                 Collection<Player> players = Bedrock.getGame().getServer().getOnlinePlayers();
 
-                source.sendMessage(Format.heading("There are",
+                source.sendMessage(Format.heading("There are ",
                     TextColors.AQUA, players.size(), TextColors.WHITE, " players online!"));
 
                 ArrayList<String> names = new ArrayList<>();
