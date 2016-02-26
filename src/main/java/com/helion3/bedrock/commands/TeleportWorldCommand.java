@@ -31,6 +31,7 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.World;
+import org.spongepowered.api.world.storage.WorldProperties;
 
 public class TeleportWorldCommand {
     private TeleportWorldCommand() {}
@@ -48,7 +49,10 @@ public class TeleportWorldCommand {
                 return CommandResult.empty();
             }
 
-            Bedrock.getTeleportManager().teleport((Player) source, args.<World>getOne("world").get());
+            WorldProperties properties = args.<WorldProperties>getOne("world").get();
+            World world = Bedrock.getGame().getServer().getWorld(properties.getUniqueId()).get();
+
+            Bedrock.getTeleportManager().teleport((Player) source, world);
 
             return CommandResult.success();
         }).build();
