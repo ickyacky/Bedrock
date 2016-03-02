@@ -24,7 +24,6 @@
 package com.helion3.bedrock.listeners;
 
 import com.helion3.bedrock.Bedrock;
-import com.helion3.bedrock.managers.AFKManager;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -32,6 +31,8 @@ import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.channel.MessageChannel;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
 public class JoinListener {
     @Listener
@@ -43,6 +44,11 @@ public class JoinListener {
 
         // Is brand new?
         if (player.get(Keys.FIRST_DATE_PLAYED).get().equals(player.get(Keys.LAST_DATE_PLAYED).get())) {
+            // Force spawn position because vanilla has a "fuzz" radius around spawn
+            Location<World> spawn = player.getWorld().getLocation(player.getWorld().getProperties().getSpawnPosition());
+
+            player.setLocation(spawn);
+
             MessageChannel.TO_ALL.send(Text.of(TextColors.GOLD, "Welcome ", TextColors.LIGHT_PURPLE,
                 player.getName(),TextColors.GOLD, " to DHMC!"));
         }
