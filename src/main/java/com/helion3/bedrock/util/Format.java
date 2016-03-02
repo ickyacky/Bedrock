@@ -30,8 +30,6 @@ import org.spongepowered.api.text.format.TextColors;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Format {
-    private static final String namespace = "Bedrock";
-    private static final TextColor namespaceColor = TextColors.AQUA;
     private Format() {}
 
     /**
@@ -69,7 +67,7 @@ public class Format {
      */
     public static Text error(Text content) {
         checkNotNull(content);
-        return Text.of(namespaceColor, namespace, ": ", TextColors.RED, content);
+        return Text.of(TextColors.RED, content);
     }
 
     /**
@@ -88,7 +86,7 @@ public class Format {
      */
     public static Text heading(Text content) {
         checkNotNull(content);
-        return Text.of(namespaceColor, namespace, ": ", TextColors.WHITE, content);
+        return Text.of(TextColors.WHITE, content);
     }
 
     /**
@@ -126,7 +124,7 @@ public class Format {
      */
     public static Text subduedHeading(Text content) {
         checkNotNull(content);
-        return Text.of(namespaceColor, namespace, ": ", TextColors.GRAY, content);
+        return Text.of(TextColors.GRAY, content);
     }
 
     /**
@@ -145,7 +143,7 @@ public class Format {
      */
     public static Text success(Text content) {
         checkNotNull(content);
-        return Text.of(namespaceColor, namespace, ": ", TextColors.GREEN, content);
+        return Text.of(TextColors.GREEN, content);
     }
 
     /**
