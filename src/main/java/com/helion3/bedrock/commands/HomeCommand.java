@@ -65,9 +65,9 @@ public class HomeCommand {
             }
 
             // Build location
-            int x = node.getNode("x").getInt();
-            int y = node.getNode("y").getInt();
-            int z = node.getNode("z").getInt();
+            double x = node.getNode("x").getDouble();
+            double y = node.getNode("y").getDouble();
+            double z = node.getNode("z").getDouble();
             UUID worldUuid = UUID.fromString(node.getNode("worldUuid").getString());
 
             Optional<World> world = Bedrock.getGame().getServer().getWorld(worldUuid);
