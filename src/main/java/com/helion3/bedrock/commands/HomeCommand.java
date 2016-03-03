@@ -80,7 +80,7 @@ public class HomeCommand {
             player.setLocation(world.get().getLocation(x, y, z));
 
             // Message
-            player.sendMessage(Format.success(String.format("Teleporting you to %d %d %d", x, y, z)));
+            player.sendMessage(Format.success(String.format("Teleporting you to home \"%s\"", name)));
 
             return CommandResult.success();
         }).build();
