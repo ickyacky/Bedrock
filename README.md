@@ -52,6 +52,7 @@ Drop into your `mods` folder, set any permissions, and enjoy.
 # Permissions
 
 - `bedrock.afk` - Toggle yourself as afk.
+- `bedrock.afk.exempt` - Exempted from AFK kicks.
 - `bedrock.broadcast` - Broadcast messages.
 - `bedrock.delhome` - Delete a warp.
 - `bedrock.feed` - Feed self.

@@ -151,6 +151,11 @@ public class AFKManager {
                 while (iterator.hasNext()) {
                     Map.Entry<Player, Long> entry = iterator.next();
 
+                    // Never kick exempt players
+                    if (entry.getKey().hasPermission("bedrock.afk.exempt")) {
+                        continue;
+                    }
+
                     if (now() - entry.getValue() >= kickThreshhold) {
                         // Remove entry
                         iterator.remove();
