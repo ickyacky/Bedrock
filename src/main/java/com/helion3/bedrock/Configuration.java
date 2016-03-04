@@ -51,12 +51,17 @@ public class Configuration {
                 rootNode = configManager.load();
             }
 
-            ConfigurationNode afkInterval = rootNode.getNode("afk", "inactiveAfter");
+            ConfigurationNode afkEnabled = rootNode.getNode("afk", "timers", "enabled");
+            if (afkEnabled.isVirtual()) {
+                afkEnabled.setValue(true);
+            }
+
+            ConfigurationNode afkInterval = rootNode.getNode("afk", "timers", "inactiveAfter");
             if (afkInterval.isVirtual()) {
                 afkInterval.setValue(120);
             }
 
-            ConfigurationNode afkKick = rootNode.getNode("afk", "kickAfter");
+            ConfigurationNode afkKick = rootNode.getNode("afk", "timers", "kickAfter");
             if (afkKick.isVirtual()) {
                 afkKick.setValue(120);
             }

@@ -39,8 +39,10 @@ public class AFKManager {
     private final Map<Player, Long> lastActivity = new HashMap<>();
 
     public AFKManager() {
-        scheduleActivityChecks();
-        scheduleAFKKicks();
+        if (Bedrock.getConfig().getNode("afk", "timers", "enabled").getBoolean()) {
+            scheduleActivityChecks();
+            scheduleAFKKicks();
+        }
     }
 
     /**
@@ -116,7 +118,7 @@ public class AFKManager {
             .delay(10L, TimeUnit.SECONDS)
             .interval(10L, TimeUnit.SECONDS)
             .execute(() -> {
-                int activityThreshhold = Bedrock.getConfig().getNode("afk", "inactiveAfter").getInt();
+                int activityThreshhold = Bedrock.getConfig().getNode("afk", "timers", "inactiveAfter").getInt();
 
                 // Iterate all inactive players
                 Iterator<Map.Entry<Player, Long>> iterator = lastActivity.entrySet().iterator();
@@ -142,7 +144,7 @@ public class AFKManager {
             .delay(10L, TimeUnit.SECONDS)
             .interval(10L, TimeUnit.SECONDS)
             .execute(() -> {
-                int kickThreshhold = Bedrock.getConfig().getNode("afk", "kickAfter").getInt();
+                int kickThreshhold = Bedrock.getConfig().getNode("afk", "timers", "kickAfter").getInt();
 
                 // Iterate all AFK players
                 Iterator<Map.Entry<Player, Long>> iterator = afkPlayers.entrySet().iterator();
