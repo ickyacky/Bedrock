@@ -99,11 +99,11 @@ public class TeleportManager {
         if (!pendingRequests.containsKey(player)) {
             player.sendMessage(Format.error("You do not have any pending requests."));
         } else {
-            Teleport request = pendingRequests.get(player);
-            Player requester = request.getRequester().get();
+            Teleport teleport = pendingRequests.get(player);
+            Player requester = teleport.getRequester().get();
 
             requester.sendMessage(Format.success(String.format("Teleporting %s....", player.getName())));
-            player.sendMessage(Format.message(String.format("Teleporting you to %s", requester.getName())));
+            teleport.getTarget().sendMessage(Format.message(String.format("Teleporting you to %s", requester.getName())));
 
             teleport(requester, player);
             pendingRequests.remove(player);
@@ -119,8 +119,8 @@ public class TeleportManager {
         if (!pendingRequests.containsKey(player)) {
             player.sendMessage(Format.error("You do not have any pending requests."));
         } else {
-            Teleport request = pendingRequests.get(player);
-            Player requester = request.getRequester().get();
+            Teleport teleport = pendingRequests.get(player);
+            Player requester = teleport.getRequester().get();
 
             requester.sendMessage(Format.message("Sorry, your request was denied."));
             player.sendMessage(Format.success(String.format("Denied %s's tp request.", requester.getName())));
