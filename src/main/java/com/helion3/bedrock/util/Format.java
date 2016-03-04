@@ -86,7 +86,7 @@ public class Format {
      */
     public static Text heading(Text content) {
         checkNotNull(content);
-        return Text.of(TextColors.WHITE, content);
+        return Text.of(TextColors.GOLD, content);
     }
 
     /**

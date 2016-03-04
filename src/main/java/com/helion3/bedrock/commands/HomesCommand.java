@@ -25,11 +25,21 @@ package com.helion3.bedrock.commands;
 
 import com.helion3.bedrock.Bedrock;
 import com.helion3.bedrock.PlayerConfiguration;
+import com.helion3.bedrock.util.ConfigurationUtil;
 import com.helion3.bedrock.util.Format;
+import ninja.leaping.configurate.ConfigurationNode;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.service.pagination.PaginationBuilder;
+import org.spongepowered.api.service.pagination.PaginationService;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.action.TextActions;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class HomesCommand {
     private HomesCommand() {}
@@ -45,15 +55,44 @@ public class HomesCommand {
             }
 
             Player player = (Player) source;
+            player.sendMessage(Format.heading("Homes:"));
+
+            // Load player's config
             PlayerConfiguration config = Bedrock.getPlayerConfigManager().getPlayerConfig(player);
 
-            if (config.getNode("homes").getChildrenMap().isEmpty()) {
+            // Get homes list
+            ConfigurationNode homesNode = config.getNode("homes");
+            if (homesNode.getChildrenMap().isEmpty()) {
                 source.sendMessage(Format.subdued("You have no homes."));
-            } else {
-                player.sendMessage(Format.heading("Homes:"));
-                config.getNode("homes").getChildrenMap().keySet().stream().filter(obj -> obj instanceof String).forEach(obj -> {
-                    player.sendMessage(Format.message(obj));
-                });
+                return CommandResult.success();
+            }
+
+            // Build paginated content
+            Optional<PaginationService> service = Bedrock.getGame().getServiceManager().provide(PaginationService.class);
+            if (service.isPresent()) {
+                PaginationBuilder pagination = service.get().builder();
+                ArrayList<Text> homes = new ArrayList<>();
+
+                for (Object obj : config.getNode("homes").getChildrenMap().keySet()) {
+                    Text.Builder builder = Text.builder().append(Format.message(obj));
+
+                    Optional<Location<World>> location = ConfigurationUtil.getNamedLocation(homesNode, (String) obj);
+                    builder.onClick(TextActions.executeCallback(t -> {
+                        if (t instanceof Player) {
+                            if (!location.isPresent()) {
+                                source.sendMessage(Format.error("Home location is no longer valid."));
+                                return;
+                            }
+
+                            ((Player) t).setLocation(location.get());
+                        }
+                    }));
+
+                    homes.add(builder.build());
+                }
+
+                pagination.contents(homes);
+                pagination.sendTo(source);
             }
 
             return CommandResult.success();

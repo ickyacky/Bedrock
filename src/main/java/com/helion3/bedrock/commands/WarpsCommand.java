@@ -24,12 +24,19 @@
 package com.helion3.bedrock.commands;
 
 import com.helion3.bedrock.Bedrock;
+import com.helion3.bedrock.util.Format;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.service.pagination.PaginationBuilder;
 import org.spongepowered.api.service.pagination.PaginationService;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.action.TextActions;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 
 public class WarpsCommand {
@@ -40,13 +47,37 @@ public class WarpsCommand {
         .description(Text.of("List warps."))
         .permission("bedrock.warp")
         .executor((source, args) -> {
-            // Build paginated content
-            Optional<PaginationService> service = Bedrock.getGame().getServiceManager().provide(PaginationService.class);
-            if (service.isPresent()) {
-                PaginationBuilder builder = service.get().builder();
-                builder.contents(Bedrock.getWarpManager().getWarpList());
-                builder.sendTo(source);
+            // Build pagination
+            PaginationService service = Bedrock.getGame().getServiceManager().provide(PaginationService.class).get();
+            PaginationBuilder pagination = service.builder();
+
+            // Build warp list
+            ArrayList<Text> contents = new ArrayList<>();
+            Map<String, Optional<Location<World>>> warps = Bedrock.getWarpManager().getWarps();
+            if (warps.isEmpty()) {
+                source.sendMessage(Format.subdued("There are no warps."));
+                return CommandResult.success();
             }
+
+            for (Map.Entry<String, Optional<Location<World>>> entry : warps.entrySet()) {
+                Text.Builder builder = Text.builder().append(Format.message(entry.getKey()));
+
+                builder.onClick(TextActions.executeCallback(t -> {
+                    if (t instanceof Player) {
+                        if (!entry.getValue().isPresent()) {
+                            source.sendMessage(Format.error("Warp is not a valid location."));
+                            return;
+                        }
+
+                        ((Player) t).setLocation(entry.getValue().get());
+                    }
+                }));
+
+                contents.add(builder.build());
+            }
+
+            pagination.contents(contents);
+            pagination.sendTo(source);
 
             return CommandResult.success();
         }).build();

@@ -23,16 +23,14 @@
  */
 package com.helion3.bedrock.managers;
 
-import com.google.common.collect.ImmutableList;
-import com.helion3.bedrock.Bedrock;
+import com.google.common.collect.ImmutableMap;
 import com.helion3.bedrock.NamedConfiguration;
+import com.helion3.bedrock.util.ConfigurationUtil;
 import ninja.leaping.configurate.ConfigurationNode;
-import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import java.util.Optional;
-import java.util.UUID;
 
 public class WarpManager {
     private final NamedConfiguration config;
@@ -81,32 +79,19 @@ public class WarpManager {
      * @return Optional Location
      */
     public Optional<Location<World>> getWarp(String name) {
-        ConfigurationNode node = config.getRootNode().getNode(name);
-        if (!node.isVirtual()) {
-            // Build location
-            int x = node.getNode("x").getInt();
-            int y = node.getNode("y").getInt();
-            int z = node.getNode("z").getInt();
-            UUID worldUuid = UUID.fromString(node.getNode("worldUuid").getString());
-
-            Optional<World> world = Bedrock.getGame().getServer().getWorld(worldUuid);
-            if (world.isPresent()) {
-                return Optional.of(world.get().getLocation(x, y, z));
-            }
-        }
-
-        return Optional.empty();
+        return ConfigurationUtil.getNamedLocation(config.getRootNode(), name);
     }
 
     /**
      * Get a list of all warps.
      *
-     * @return ImmutableList of warps
+     * @return ImmutableMap of warp names and locations
      */
-    public ImmutableList<Text> getWarpList() {
-        ImmutableList.Builder<Text> builder = ImmutableList.builder();
+    public ImmutableMap<String, Optional<Location<World>>> getWarps() {
+        ImmutableMap.Builder<String, Optional<Location<World>>> builder = ImmutableMap.builder();
         for (Object obj : config.getRootNode().getChildrenMap().keySet()) {
-            builder.add(Text.of((String) obj));
+            String name = (String) obj;
+            builder.put(name, getWarp(name));
         }
 
         return builder.build();
