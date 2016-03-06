@@ -27,6 +27,7 @@ Drop into your `mods` folder, set any permissions, and enjoy.
 - `/(m|message) (player) (message)` - Direct message another player.
 - `/(perf|performance|gc)` - View performance stats.
 - `/ping` - Verify server is responsive.
+- `/reload` - Reload configuration files.
 - `/(r|reply) (message)` - Reply to a direct message.
 - `/sethome (name)` - Set a home.
 - `/setspawn` - Set spawn for the current world.
@@ -64,6 +65,7 @@ Drop into your `mods` folder, set any permissions, and enjoy.
 - `bedrock.fly.others` - Toggle fly for others.
 - `bedrock.message` - Direct message players.
 - `bedrock.performance` - View performance stats.
+- `bedrock.reload` - Reload configuration files.
 - `bedrock.setspawn` - Set spawn.
 - `bedrock.setwarp` - Set warps.
 - `bedrock.spawn` - Set spawn.

@@ -23,6 +23,7 @@
  */
 package com.helion3.bedrock.commands;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.helion3.bedrock.util.Format;
 import org.spongepowered.api.command.CommandCallable;
@@ -38,10 +39,10 @@ public class BedrockCommands {
 
     public static CommandSpec getCommand() {
         ImmutableMap.Builder<List<String>, CommandCallable> builder = ImmutableMap.<List<String>, CommandCallable>builder();
-        // @todo child commands go here
+        builder.put(ImmutableList.of("reload"), ReloadCommand.getCommand());
 
         return CommandSpec.builder().executor((src, args) -> {
-            src.sendMessage(Text.of(Format.heading(TextColors.GRAY, "By ", TextColors.GOLD, "viveleroi, Aiden880.\n"),
+            src.sendMessage(Text.of(Format.heading(TextColors.GRAY, "By ", TextColors.GOLD, "viveleroi.\n"),
                 TextColors.GRAY, "IRC: ",
                 TextColors.WHITE, "irc.esper.net #prism"));
             return CommandResult.empty();

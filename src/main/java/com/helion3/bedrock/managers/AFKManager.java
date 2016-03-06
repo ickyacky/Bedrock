@@ -25,6 +25,7 @@ package com.helion3.bedrock.managers;
 
 import com.helion3.bedrock.Bedrock;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.channel.MessageChannel;
 import org.spongepowered.api.text.format.TextColors;
@@ -37,12 +38,22 @@ import java.util.concurrent.TimeUnit;
 public class AFKManager {
     private final Map<Player, Long> afkPlayers = new HashMap<>();
     private final Map<Player, Long> lastActivity = new HashMap<>();
+    private Task afkKick;
+    private Task inactivity;
 
     public AFKManager() {
         if (Bedrock.getConfig().getNode("afk", "timers", "enabled").getBoolean()) {
             scheduleActivityChecks();
             scheduleAFKKicks();
         }
+    }
+
+    /**
+     * Cancel running tasks when closing manager.
+     */
+    public void close() {
+        afkKick.cancel();
+        inactivity.cancel();
     }
 
     /**
@@ -114,7 +125,7 @@ public class AFKManager {
      * Run scheduled tasks which check for last activity.
      */
     private void scheduleActivityChecks() {
-        Bedrock.getGame().getScheduler().createTaskBuilder()
+        inactivity = Bedrock.getGame().getScheduler().createTaskBuilder()
             .delay(10L, TimeUnit.SECONDS)
             .interval(10L, TimeUnit.SECONDS)
             .execute(() -> {
@@ -140,7 +151,7 @@ public class AFKManager {
      * Run scheduled tasks which kick players who AFK too long.
      */
     private void scheduleAFKKicks() {
-        Bedrock.getGame().getScheduler().createTaskBuilder()
+        afkKick = Bedrock.getGame().getScheduler().createTaskBuilder()
             .delay(10L, TimeUnit.SECONDS)
             .interval(10L, TimeUnit.SECONDS)
             .execute(() -> {

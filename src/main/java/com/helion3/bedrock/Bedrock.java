@@ -68,13 +68,8 @@ public class Bedrock {
         plugin = this;
         parentDirectory = defaultConfig.getParentFile();
 
-        // Load configuration file
-        config = new Configuration(defaultConfig, configManager);
-
-        // Init here so Game is available
-        afkManager = new AFKManager();
-        teleportManager = new TeleportManager();
-        warpManager = new WarpManager();
+        // Load configuration files
+        load();
 
         // Commands
         game.getCommandManager().register(this, AFKCommand.getCommand(), "afk");
@@ -226,5 +221,22 @@ public class Bedrock {
      */
     public static WarpManager getWarpManager() {
         return warpManager;
+    }
+
+    /**
+     * Loads configuration-based classes.
+     */
+    public void load() {
+        // Load configuration file
+        config = new Configuration(defaultConfig, configManager);
+
+        if (afkManager != null) {
+            afkManager.close();
+        }
+
+        // Init here so Game is available
+        afkManager = new AFKManager();
+        teleportManager = new TeleportManager();
+        warpManager = new WarpManager();
     }
 }
