@@ -29,6 +29,7 @@ import com.helion3.bedrock.util.ConfigurationUtil;
 import com.helion3.bedrock.util.Format;
 import ninja.leaping.configurate.ConfigurationNode;
 import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.service.pagination.PaginationBuilder;
@@ -46,19 +47,34 @@ public class HomesCommand {
 
     public static CommandSpec getCommand() {
         return CommandSpec.builder()
-        .description(Text.of("List your homes."))
-        .permission("bedrock.home")
+        .arguments(
+            GenericArguments.playerOrSource(Text.of("player"))
+        )
+        .description(Text.of("List homes for yourself or another player."))
         .executor((source, args) -> {
-            if (!(source instanceof Player)) {
-                source.sendMessage(Format.error("Only players may use this command."));
+            Optional<Player> player = args.<Player>getOne("player");
+
+            if (!player.isPresent()) {
+                source.sendMessage(Format.error("You did not specify a player."));
                 return CommandResult.empty();
             }
 
-            Player player = (Player) source;
-            player.sendMessage(Format.heading("Homes:"));
+            boolean forSelf = source.equals(player.get());
+
+            // Permissions
+            if (!forSelf && !source.hasPermission("bedrock.homes.others")) {
+                source.sendMessage(Format.error("You do not have permission to heal other players."));
+                return CommandResult.empty();
+            }
+            else if (forSelf && !source.hasPermission("bedrock.home")) {
+                source.sendMessage(Format.error("Insufficient permissions."));
+                return CommandResult.empty();
+            }
+
+            source.sendMessage(Format.heading((forSelf ? "Your" : player.get().getName() + "'s") + " Homes:"));
 
             // Load player's config
-            PlayerConfiguration config = Bedrock.getPlayerConfigManager().getPlayerConfig(player);
+            PlayerConfiguration config = Bedrock.getPlayerConfigManager().getPlayerConfig(player.get());
 
             // Get homes list
             ConfigurationNode homesNode = config.getNode("homes");
