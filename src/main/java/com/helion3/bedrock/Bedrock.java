@@ -73,6 +73,7 @@ public class Bedrock {
 
         // Commands
         game.getCommandManager().register(this, AFKCommand.getCommand(), "afk");
+        game.getCommandManager().register(this, BackCommand.getCommand(), "back");
         game.getCommandManager().register(this, BedrockCommands.getCommand(), "br", "bedrock");
         game.getCommandManager().register(this, BroadcastCommand.getCommand(), "broadcast");
         game.getCommandManager().register(this, DeleteHomeCommand.getCommand(), "delhome");
@@ -109,6 +110,7 @@ public class Bedrock {
         game.getCommandManager().register(this, WeatherCommand.getCommand(), "weather");
 
         // Event Listeners
+        game.getEventManager().registerListeners(this, new DeathListener());
         game.getEventManager().registerListeners(this, new DisconnectListener());
         game.getEventManager().registerListeners(this, new FishingListener());
         game.getEventManager().registerListeners(this, new JoinListener());

@@ -15,6 +15,7 @@ Drop into your `mods` folder, set any permissions, and enjoy.
 # Commands
 
 - `/afk` - Toggle afk.
+- `/back` - Teleport to your last death location.
 - `/broadcast (message)` - Broadcast a message to all players.
 - `/delhome (name)` - Delete a home.
 - `/delwarp (name)` - Delete a warp.
@@ -54,6 +55,7 @@ Drop into your `mods` folder, set any permissions, and enjoy.
 
 - `bedrock.afk` - Toggle yourself as afk.
 - `bedrock.afk.exempt` - Exempted from AFK kicks.
+- `bedrock.back` - Teleport to your last death location.
 - `bedrock.broadcast` - Broadcast messages.
 - `bedrock.delhome` - Delete a warp.
 - `bedrock.feed` - Feed self.

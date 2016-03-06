@@ -21,40 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.helion3.bedrock.util;
+package com.helion3.bedrock.listeners;
 
 import com.helion3.bedrock.Bedrock;
+import com.helion3.bedrock.PlayerConfiguration;
 import ninja.leaping.configurate.ConfigurationNode;
-import org.spongepowered.api.world.Location;
-import org.spongepowered.api.world.World;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.entity.DestructEntityEvent.Death;
 
-import java.util.Optional;
-import java.util.UUID;
+public class DeathListener {
+    @Listener
+    public void onDeath(final Death event) {
+        if (event.getTargetEntity() instanceof Player) {
+            Player player = (Player) event.getTargetEntity();
+            PlayerConfiguration config = Bedrock.getPlayerConfigManager().getPlayerConfig(player);
 
-public class ConfigurationUtil {
-    private ConfigurationUtil() {}
+            ConfigurationNode node = config.getNode("deaths", "last");
+            node.getNode("x").setValue(player.getLocation().getX());
+            node.getNode("y").setValue(player.getLocation().getY());
+            node.getNode("z").setValue(player.getLocation().getZ());
+            node.getNode("worldUuid").setValue(player.getWorld().getUniqueId().toString());
 
-    /**
-     * Get a Location object for a named location.
-     *
-     * @param name String location name
-     * @return Optional Location
-     */
-    public static Optional<Location<World>> getNamedLocation(ConfigurationNode config, String name) {
-        ConfigurationNode node = config.getNode(name);
-        if (!node.isVirtual()) {
-            // Build location
-            double x = node.getNode("x").getDouble();
-            double y = node.getNode("y").getDouble();
-            double z = node.getNode("z").getDouble();
-            UUID worldUuid = UUID.fromString(node.getNode("worldUuid").getString());
-
-            Optional<World> world = Bedrock.getGame().getServer().getWorld(worldUuid);
-            if (world.isPresent()) {
-                return Optional.of(world.get().getLocation(x, y, z));
-            }
+            config.save();
         }
-
-        return Optional.empty();
     }
 }
