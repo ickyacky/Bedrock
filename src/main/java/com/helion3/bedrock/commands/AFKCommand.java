@@ -37,7 +37,7 @@ public class AFKCommand {
     public static CommandSpec getCommand() {
         return CommandSpec.builder()
         .description(Text.of("Toggle AFK status."))
-        .permission("bedrock.afk")
+        .permission("bedrock.afk.use")
         .executor((source, args) -> {
             if (!(source instanceof Player)) {
                 source.sendMessage(Format.error("Only players may use this command."));

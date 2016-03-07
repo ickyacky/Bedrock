@@ -53,17 +53,17 @@ Drop into your `mods` folder, set any permissions, and enjoy.
 
 # Permissions
 
-- `bedrock.afk` - Toggle yourself as afk.
+- `bedrock.afk.use` - Toggle yourself as afk.
 - `bedrock.afk.exempt` - Exempted from AFK kicks.
 - `bedrock.back` - Teleport to your last death location.
 - `bedrock.broadcast` - Broadcast messages.
 - `bedrock.delhome` - Delete a warp.
-- `bedrock.feed` - Feed self.
+- `bedrock.feed.use` - Feed self.
 - `bedrock.feed.others` - Feed others.
-- `bedrock.heal` - Heal self.
+- `bedrock.heal.use` - Heal self.
 - `bedrock.heal.others` - Heal others.
 - `bedrock.home` - Use homes. Limits are define in permissions options.
-- `bedrock.fly` - Toggle fly for yourself.
+- `bedrock.fly.use` - Toggle fly for yourself.
 - `bedrock.fly.others` - Toggle fly for others.
 - `bedrock.message` - Direct message players.
 - `bedrock.performance` - View performance stats.

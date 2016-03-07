@@ -49,7 +49,7 @@ public class FeedCommand {
                 source.sendMessage(Format.error("You do not have permission to feed other players."));
                 return CommandResult.empty();
             }
-            else if (forSelf && !source.hasPermission("bedrock.feed")) {
+            else if (forSelf && !source.hasPermission("bedrock.feed.use")) {
                 source.sendMessage(Format.error("Insufficient permissions."));
                 return CommandResult.empty();
             }

@@ -52,7 +52,7 @@ public class HealCommand {
                 source.sendMessage(Format.error("You do not have permission to heal other players."));
                 return CommandResult.empty();
             }
-            else if (forSelf && !source.hasPermission("bedrock.heal")) {
+            else if (forSelf && !source.hasPermission("bedrock.heal.use")) {
                 source.sendMessage(Format.error("Insufficient permissions."));
                 return CommandResult.empty();
             }

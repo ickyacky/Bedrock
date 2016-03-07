@@ -56,7 +56,7 @@ public class FlyCommand {
                 source.sendMessage(Format.error("You do not have permission to toggle fly for other players."));
                 return CommandResult.empty();
             }
-            else if (forSelf && !source.hasPermission("bedrock.fly")) {
+            else if (forSelf && !source.hasPermission("bedrock.fly.use")) {
                 source.sendMessage(Format.error("You do not have permission to toggle fly."));
                 return CommandResult.empty();
             }
