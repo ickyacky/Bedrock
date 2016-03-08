@@ -41,15 +41,26 @@ public class TeleportManager {
     public static class Teleport {
         private final Player source;
         private final Player target;
-        private Player requestedBy;
+        private Player recipient;
+        private Player sender;
 
         public Teleport(Player source, Player target) {
-            this.source = source;
-            this.target = target;
+            this(source, target, source, target);
         }
 
-        public Optional<Player> getRequester() {
-            return Optional.ofNullable(requestedBy);
+        public Teleport(Player source, Player target, Player sender, Player recipient) {
+            this.source = source;
+            this.target = target;
+            this.sender = sender;
+            this.recipient = recipient;
+        }
+
+        public Optional<Player> getRecipient() {
+            return Optional.ofNullable(recipient);
+        }
+
+        public Optional<Player> getSender() {
+            return Optional.ofNullable(sender);
         }
 
         public Player getSource() {
@@ -59,10 +70,6 @@ public class TeleportManager {
         public Player getTarget() {
             return target;
         }
-
-        public void setRequestedBy(Player player) {
-            this.requestedBy = player;
-        }
     }
 
     /**
@@ -71,21 +78,21 @@ public class TeleportManager {
      * @param teleport Teleport
      */
     public void request(Teleport teleport) {
-        Player target = teleport.getTarget();
-        Player requester = teleport.getRequester().get();
+        Player sender = teleport.getSender().get();
+        Player recipient = teleport.getRecipient().get();
 
         // Store
-        pendingRequests.put(target, teleport);
+        pendingRequests.put(teleport.getTarget(), teleport);
 
-        target.sendMessage(Text.of(TextColors.YELLOW,
-            String.format("%s is requesting to teleport to you\n", requester.getName()),
+        recipient.sendMessage(Text.of(TextColors.YELLOW,
+            String.format("%s is requesting to teleport to you\n", sender.getName()),
             TextColors.WHITE, "Use /tpaccept or /tpdeny within 20 seconds"));
 
         // Handle request
-        requester.sendMessage(Format.subdued("Sending request..."));
+        sender.sendMessage(Format.subdued("Sending request..."));
         Bedrock.getGame().getScheduler().createTaskBuilder().delayTicks(400L).execute(() -> {
-            if (pendingRequests.remove(target) != null) {
-                teleport.getTarget().sendMessage(Format.subdued("Your request did not receive a response."));
+            if (pendingRequests.remove(teleport.getTarget()) != null) {
+                sender.sendMessage(Format.subdued("Your request did not receive a response."));
             }
         }).submit(Bedrock.getPlugin());
     }
@@ -100,12 +107,13 @@ public class TeleportManager {
             player.sendMessage(Format.error("You do not have any pending requests."));
         } else {
             Teleport teleport = pendingRequests.get(player);
-            Player requester = teleport.getRequester().get();
+            Player sender = teleport.getSender().get();
+            Player recipient = teleport.getRecipient().get();
 
-            requester.sendMessage(Format.success(String.format("Teleporting %s....", player.getName())));
-            teleport.getTarget().sendMessage(Format.message(String.format("Teleporting you to %s", requester.getName())));
+            sender.sendMessage(Format.success(String.format("Teleporting %s....", teleport.getSource().getName())));
+            recipient.sendMessage(Format.message(String.format("Teleporting you to %s", teleport.getTarget().getName())));
 
-            teleport(requester, player);
+            teleport(sender, player);
             pendingRequests.remove(player);
         }
     }
@@ -120,10 +128,10 @@ public class TeleportManager {
             player.sendMessage(Format.error("You do not have any pending requests."));
         } else {
             Teleport teleport = pendingRequests.get(player);
-            Player requester = teleport.getRequester().get();
+            Player sender = teleport.getSender().get();
 
-            requester.sendMessage(Format.message("Sorry, your request was denied."));
-            player.sendMessage(Format.success(String.format("Denied %s's tp request.", requester.getName())));
+            sender.sendMessage(Format.message("Sorry, your request was denied."));
+            player.sendMessage(Format.success(String.format("Denied %s's tp request.", sender.getName())));
 
             pendingRequests.remove(player);
         }

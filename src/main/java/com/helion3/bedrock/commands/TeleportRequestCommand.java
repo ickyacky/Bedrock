@@ -50,7 +50,6 @@ public class TeleportRequestCommand {
 
             // Request...
             Teleport teleport = new Teleport((Player) source, args.<Player>getOne("player").get());
-            teleport.setRequestedBy((Player) source);
             Bedrock.getTeleportManager().request(teleport);
 
             return CommandResult.success();

@@ -48,9 +48,11 @@ public class TeleportHereRequestCommand {
                 return CommandResult.empty();
             }
 
+            Player sender = (Player) source;
+            Player recipient = args.<Player>getOne("player").get();
+
             // Request...
-            Teleport teleport = new Teleport(args.<Player>getOne("player").get(), (Player) source);
-            teleport.setRequestedBy((Player) source);
+            Teleport teleport = new Teleport(recipient, sender, sender, recipient);
             Bedrock.getTeleportManager().request(teleport);
 
             return CommandResult.success();
