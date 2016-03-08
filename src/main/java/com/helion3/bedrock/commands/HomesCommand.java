@@ -63,7 +63,7 @@ public class HomesCommand {
 
             // Permissions
             if (!forSelf && !source.hasPermission("bedrock.homes.others")) {
-                source.sendMessage(Format.error("You do not have permission to heal other players."));
+                source.sendMessage(Format.error("You do not have permission to view other players' homes."));
                 return CommandResult.empty();
             }
             else if (forSelf && !source.hasPermission("bedrock.home")) {
