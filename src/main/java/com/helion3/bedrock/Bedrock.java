@@ -42,7 +42,7 @@ import org.spongepowered.api.plugin.Plugin;
 
 import java.io.File;
 
-@Plugin(id = "Bedrock", name = "Bedrock", version = "1.0")
+@Plugin(id = "bedrock", name = "bedrock", version = "1.0")
 public class Bedrock {
     private static AFKManager afkManager;
     private static Configuration config;

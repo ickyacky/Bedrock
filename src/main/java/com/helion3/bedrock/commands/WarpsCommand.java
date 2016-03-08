@@ -28,7 +28,7 @@ import com.helion3.bedrock.util.Format;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.service.pagination.PaginationBuilder;
+import org.spongepowered.api.service.pagination.PaginationList;
 import org.spongepowered.api.service.pagination.PaginationService;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
@@ -49,7 +49,7 @@ public class WarpsCommand {
         .executor((source, args) -> {
             // Build pagination
             PaginationService service = Bedrock.getGame().getServiceManager().provide(PaginationService.class).get();
-            PaginationBuilder pagination = service.builder();
+            PaginationList.Builder pagination = service.builder();
 
             // Build warp list
             ArrayList<Text> contents = new ArrayList<>();

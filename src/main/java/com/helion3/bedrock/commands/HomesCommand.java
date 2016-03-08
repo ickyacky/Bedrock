@@ -32,7 +32,7 @@ import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.service.pagination.PaginationBuilder;
+import org.spongepowered.api.service.pagination.PaginationList;
 import org.spongepowered.api.service.pagination.PaginationService;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
@@ -86,7 +86,7 @@ public class HomesCommand {
             // Build paginated content
             Optional<PaginationService> service = Bedrock.getGame().getServiceManager().provide(PaginationService.class);
             if (service.isPresent()) {
-                PaginationBuilder pagination = service.get().builder();
+                PaginationList.Builder pagination = service.get().builder();
                 ArrayList<Text> homes = new ArrayList<>();
 
                 for (Object obj : config.getNode("homes").getChildrenMap().keySet()) {
